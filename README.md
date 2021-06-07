@@ -16,7 +16,7 @@ When running, the pipeline is expected to do the following:
 - Performing genome annotation using prokka_ps.sh script running prokka (https://github.com/tseemann/prokka).
 
 The second phase of the pipeline is expected to do the following:
-- Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0.
+- Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0 (http://systbio.cau.edu.cn/bean).
 - Predicting the T6SS  effectors.
 - Predicting T2SS effectors.
 - Perform prophage and phylogenetic analysis.

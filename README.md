@@ -2,7 +2,7 @@
 
 The pipeline runs through fastq files to produce predicted effectors which will be used for further downstreaming functional and phylogenetic analysis.
 
-Please run the pipeline in the slurm environmet by typing the following command:
+Please run the pipeline in the slurm environment by typing the following command:
 ```
 sbatch pipeline.sh
 ```

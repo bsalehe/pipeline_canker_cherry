@@ -20,3 +20,19 @@ The second phase of the pipeline is expected to do the following:
 - Predicting the T6SS  effectors.
 - Predicting T2SS effectors.
 - Perform prophage and phylogenetic analysis.
+
+### Configuring BEAN-2.0
+BEAN-2.0 comes with the 'classify.pl' script, which requires several perl modules to be in your PERL5LIB path in addition to those needed to run
+pfam_scan module. These modules include `Class::Load::Load` `Eval::Closure` `IPC::Run` `Package::DeprecationManager' `Test::Fatal`.
+
+The following settings were also done in the 'classify.pl' file:
+- BLAST's database
+`my $blast_nrdb="/data/scratch/bsalehe/blast_nrdb/nr";`
+- HHBLITS's database
+`my $hhsuite_db="/home/bsalehe/canker_cherry/hhsuit_db/scop/scop95";`
+- PfamScan's database
+`my $pfam_db="/scratch/software/BEAN2.0/pfam_db";`
+- HHblits' tool script reformat.pl path
+`my $reformat='/scratch/software/hh-suite/build/scripts';`
+- PfamScan' tool script pfam_scan.pl path
+`my $pfamscan='/scratch/software/BEAN2.0/PfamScan/pfam_scan.pl';`

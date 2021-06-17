@@ -74,11 +74,20 @@ done
 #
 ./prokka_ps.sh $Assembly
 #
+PROKKA_OUT=$(ls /home/bsalehe/canker_cherry/scripts/ps_annotation/*.faa)
 ###################
 
+#########################################################
+
+# PHASE B: EFFECTORS PREDICTION FROM PROKKA ANNOTATION FILES
+
+#########################################################
 
 ##################
 #
 #BEAN2.0_T3SS_effector
 #
 ##################
+./bean.sh $PROKKA_OUT
+#
+#

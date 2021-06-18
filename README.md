@@ -36,3 +36,5 @@ The following settings were also done in the 'classify.pl' file:
 `my $reformat='/scratch/software/hh-suite/build/scripts';`
 - PfamScan' tool script pfam_scan.pl path
 `my $pfamscan='/scratch/software/BEAN2.0/PfamScan/pfam_scan.pl';`
+- Libsvm' tool script svm-predict
+`my $svm_pred='/home/bsalehe/canker_cherry/software/BEAN-2.0/libsvm-2.9';`

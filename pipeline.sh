@@ -1,9 +1,12 @@
 #!/bin/bash
 
-#SBATCH -J pipeline
+#!/usr/bin/env bash
 #SBATCH --partition=himem
-#SBATCH --mem-per-cpu=8G
+#SBATCH --mem=500G
 #SBATCH --cpus-per-task=16
+
+echo Start running pipeline...
+export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
 
 #########################################################
 
@@ -19,9 +22,10 @@ WORKDIR=$PWD
 Out=$(date +%Y%m%d%s)
 mkdir ${Out}_spades_output
 Assembly=${Out}_spades_output
-OutDir=${Out}_quast_output
+QuastOutDir=${Out}_quast_output
 Correction=""
 Cutoff="auto"
+READSDATADIR="/home/bsalehe/canker_cherry/data/"
 
 #########################################################
 
@@ -29,7 +33,7 @@ Cutoff="auto"
 
 ###########################################################
 
-for file1 in ../data/*_R1_*.fastq.gz; do
+for file1 in ${READSDATADIR}*_R1_*.fastq.gz; do
 	file2=${file1/R1_/R2_}
 	#paired=${i1/R1_/paired}
 	./fastp.sh "$file1" "$file2" "$(basename $file1 .fastq.gz)trimmed.fastq.gz" "$(basename $file2 .fastq.gz)trimmed.fastq.gz"
@@ -63,7 +67,7 @@ done
 #ProgDir=/home/gomeza/git_repos/scripts/bioinformatics_tools/Assembly_qc
 for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #OutDir=$(dirname $Assembly_file)
-    ./quast.sh $Assembly_file $OutDir
+    ./quast.sh $Assembly_file $QuastOutDir
 done
 
 ####################
@@ -91,3 +95,6 @@ PROKKA_OUT=$(ls /home/bsalehe/canker_cherry/scripts/ps_annotation/*.faa)
 ./bean.sh $PROKKA_OUT
 #
 #
+# Copy fastp, assembly, quast, genome_cov output files into /scratch/data/bsalehe/canker_cherry_pipeline_output
+cp -r $Assembly /scratch/data/bsalehe/canker_cherry_pipeline_output
+cp -r $QuastOutDir //scratch/data/bsalehe/canker_cherry_pipeline_output

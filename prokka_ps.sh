@@ -1,10 +1,7 @@
 #!/bin/bash
 
-#SBATCH -J prokka
-#SBATCH --partition=himem
-#SBATCH --mem-per-cpu=8G
-#SBATCH --cpus-per-task=16
-
+# Reference sequence path containing gbk files
+REFSEQPATH="/home/bsalehe/canker_cherry/script/refseq1/"
 #spades_out="$1"
 Assembly="$1"
 #### Prokka genome annotation #### 
@@ -46,10 +43,10 @@ export MYCONDAPATH=/home/bsalehe/miniconda3
 source ${MYCONDAPATH}/bin/activate prokka
 
 # Run Prokka
-prokka --proteins refseq_meged/ps.gbk --outdir ps_annotation "$Assembly"/contigs.fasta
+prokka --proteins ${REFSEQPATH}ps.gbk --outdir ps_annotation "$Assembly"/contigs.fasta
 
 #convert all ref genbank files into fasta format
-prokka-genbank_to_fasta_db refseq1/*.gbk > refseq_merged/ps.faa
+prokka-genbank_to_fasta_db ${REFSEQPATH}*.gbk > refseq_merged/ps.faa
 
 makeblastdb -in refseq_merged/ps.faa -dbtype prot
 

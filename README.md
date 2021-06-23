@@ -2,6 +2,8 @@
 
 The pipeline runs through fastq files to produce predicted effectors which will be used for further downstreaming functional and phylogenetic analysis.
 
+### Phase 1: Pre-prcessing
+
 For the first phase when running, the pipeline is expected to do the following:
 - Pre-processing fastq files using fastp.sh script file running fastp (https://github.com/OpenGene/fastp) tool. The fastp final output will be stored in the same directory where the pipeline script runs.
 - Performing genome assembly using SPAdes.sh script file running SPAdes (http://bioinf.spbau.ru/spades).
@@ -55,13 +57,14 @@ The prokka script should be conifgured accordingly. In my case I did the followi
 ```
 Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the prokka_script accordingly excluding step 6.
 
+### Phase 2: Downstream analysis for Effectors prediction and phylogenomic analysis
 The second phase of the pipeline is expected to do the following:
 - Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0 (http://systbio.cau.edu.cn/bean).
 - Predicting the T6SS  effectors.
 - Predicting T2SS effectors.
 - Perform prophage and phylogenetic analysis.
 
-### Configuring BEAN-2.0
+#### Configuring BEAN-2.0
 BEAN-2.0 comes with the 'classify.pl' script, which requires several perl modules to be in your PERL5LIB path in addition to those needed to run
 pfam_scan module. These modules include `Class::Load::Load` `Eval::Closure` `IPC::Run` `Package::DeprecationManager' `Test::Fatal`.
 

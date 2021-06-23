@@ -36,6 +36,8 @@ fi
 cp *.html fastp_output
 cp *.json fastp_output
 rm *.html *.json
-
+cp -r fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output
+rm -rf fastp_output
+#
 #deactivate fastp
 conda deactivate

@@ -10,3 +10,9 @@ echo "Usage: genome_size.sh  <file1.fq.gz> <option file2.fq.gz> <genome_size int
 
 echo "Finished computing coverage $(basename $R1 .fastq.gz)"
 
+# Copy coverage output into /data/scratch/bsalehe/
+#
+cp coverage.txt /data/scratch/bsalehe/canker_cherry_pipeline_output/
+#
+rm coverage.txt
+

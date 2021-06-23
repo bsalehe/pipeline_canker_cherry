@@ -2,18 +2,56 @@
 
 The pipeline runs through fastq files to produce predicted effectors which will be used for further downstreaming functional and phylogenetic analysis.
 
-Please run the pipeline in the slurm environment by typing the following command:
-```
-sbatch pipeline.sh
-```
-The pipeline.sh script file should be in the same directory with other script files.
-
-When running, the pipeline is expected to do the following: 
+For the first phase when running, the pipeline is expected to do the following:
 - Pre-processing fastq files using fastp.sh script file running fastp (https://github.com/OpenGene/fastp) tool. The fastp final output will be stored in the same directory where the pipeline script runs.
 - Performing genome assembly using SPAdes.sh script file running SPAdes (http://bioinf.spbau.ru/spades).
 - Perform coverage analysis using genme_cov.sh which runs cuont.pl.
 - Performing assembly quality analysis using quast.sh script running quast (http://quast.sourceforge.net/).
 - Performing genome annotation using prokka_ps.sh script running prokka (https://github.com/tseemann/prokka).
+
+Please run the pipeline in the slurm environment by typing the following command:
+```
+sbatch pipeline.sh
+```
+The pipeline.sh script file should be in the same directory with other script files.
+Before running the pipeline script open it using vim or any text editor and please change accordingly READSDATADIR path where the data reads are located.
+Example `READSDATADIR="/home/bsalehe/canker_cherry/data/"`
+
+You may need to change the PROKKA_OUT variable which holds the final prokka final fasta output file for effector prediction using BEAN2.0 and and path for reference gbk files in the 'prokka_ps.sh' script file.
+Example `REFSEQPATH="/home/bsalehe/canker_cherry/script/refseq1/"`. The prokka script should be conifgured accordingly. In my case I did the following:
+
+1. I installed ncbi-genome-download tool using conda. This is not needed at the moment
+`conda create -n ncbi_genome_download`
+`conda install -c bioconda ncbi-genome-download`
+
+2. I activated the ncbi-genome-download
+`conda activate ncbi-genome-download`
+
+3. I downloaded ref genomes from ncbi
+'ncbi-genome-download -F genbank --genera "Pseudomonas syringae" bacteria -v --flat-output`
+
+4. I moved all gbff.gz to a single folder
+`mv *.gbff.gz refseq/`
+
+5. I decompressed files from .gbff.gz to .gbk
+```
+  for file in refseq/*.gbff.gz; do
+       zcat $file > refseq/$(basename $file .gbff.gz).gbk
+  done
+```
+
+6. I copied some few genomes to new folder for testing
+```
+   mkdir refseq1
+   cp refseq/*.1_C*.gbk refseq1/
+```
+
+7. I merged all .gbk files into single gbk file using adapted merge_gbk.py script
+```
+   mkdir refseq_merged
+   python merge_gbk.py refseq1/*.gbk > refseq_merged/ps.gbk
+```
+Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the prokka_script accordingly excluding step 6.
 
 The second phase of the pipeline is expected to do the following:
 - Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0 (http://systbio.cau.edu.cn/bean).

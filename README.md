@@ -17,8 +17,10 @@ The pipeline.sh script file should be in the same directory with other script fi
 Before running the pipeline script open it using vim or any text editor and please change accordingly READSDATADIR path where the data reads are located.
 Example `READSDATADIR="/home/bsalehe/canker_cherry/data/"`
 
-You may need to change the PROKKA_OUT variable which holds the final prokka final fasta output file for effector prediction using BEAN2.0 and and path for reference gbk files in the 'prokka_ps.sh' script file.
-Example `REFSEQPATH="/home/bsalehe/canker_cherry/script/refseq1/"`. The prokka script should be conifgured accordingly. In my case I did the following:
+You may need to change the PROKKA_OUT variable which holds the final prokka final fasta output file for being used as an input for effector prediction using BEAN2.0, and also change the path for reference gbk files in the 'prokka_ps.sh' script file.
+Example `REFSEQPATH="/home/bsalehe/canker_cherry/script/refseq1/"`. 
+
+The prokka script should be conifgured accordingly. In my case I did the following:
 
 1. I installed ncbi-genome-download tool using conda. This is not needed at the moment
 `conda create -n ncbi_genome_download`

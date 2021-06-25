@@ -78,7 +78,7 @@ done
 #
 ./prokka_ps.sh $Assembly
 #
-PROKKA_OUT=$(ls /home/bsalehe/canker_cherry/scripts/ps_annotation/*.faa)
+PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/ps_annotation/*.faa)
 ###################
 
 #########################################################
@@ -96,5 +96,9 @@ PROKKA_OUT=$(ls /home/bsalehe/canker_cherry/scripts/ps_annotation/*.faa)
 #
 #
 # Copy fastp, assembly, quast, genome_cov output files into /scratch/data/bsalehe/canker_cherry_pipeline_output
-cp -r $Assembly /scratch/data/bsalehe/canker_cherry_pipeline_output
-cp -r $QuastOutDir //scratch/data/bsalehe/canker_cherry_pipeline_output
+cp -r $Assembly /data/scratch/bsalehe/canker_cherry_pipeline_output
+cp -r $QuastOutDir /data/scratch/bsalehe/canker_cherry_pipeline_output
+
+rm -rf $Assembly $QuastOutDir
+rm *.gz
+mv slurm-*.out /data/scratch/bsalehe/canker_cherry_pipeline_output/slurm.out

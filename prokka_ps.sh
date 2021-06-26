@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Reference sequence path containing gbk files
-REFSEQPATH="/home/bsalehe/canker_cherry/script/refseq1/"
+REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
 PROKKA_DB="/data/scratch/bsalehe/prokka_db/"
 PROKKA_OUT="/data/scratch/bsalehe/prokka_out"
 #spades_out="$1"

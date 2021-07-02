@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #!/usr/bin/env bash
-#SBATCH --partition=himem
+#SBATCH --partition=long
 #SBATCH --mem=500G
 #SBATCH --cpus-per-task=16
 
@@ -96,9 +96,10 @@ PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/ps_annotation/*.faa)
 #
 #
 # Copy fastp, assembly, quast, genome_cov output files into /scratch/data/bsalehe/canker_cherry_pipeline_output
-cp -r $Assembly /data/scratch/bsalehe/canker_cherry_pipeline_output
-cp -r $QuastOutDir /data/scratch/bsalehe/canker_cherry_pipeline_output
-
-rm -rf $Assembly $QuastOutDir
-rm *.gz
-mv slurm-*.out /data/scratch/bsalehe/canker_cherry_pipeline_output/slurm.out
+if [ $? -ge 0 ]; then
+    cp -r $Assembly /data/scratch/bsalehe/canker_cherry_pipeline_output
+    cp -r $QuastOutDir /data/scratch/bsalehe/canker_cherry_pipeline_output
+    rm -rf $Assembly $QuastOutDir
+    rm *.gz
+    mv slurm-*.out /data/scratch/bsalehe/canker_cherry_pipeline_output/slurm.out
+fi

@@ -2,6 +2,7 @@
 
 # Reference sequence path containing gbk files
 REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
+REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
 PROKKA_DB="/data/scratch/bsalehe/prokka_db/"
 PROKKA_OUT="/data/scratch/bsalehe/prokka_out"
 #spades_out="$1"
@@ -36,16 +37,22 @@ Assembly="$1"
 
 # Merge all .gbk files into single gbk file using adapted merge_gbk.py script
 ## mkdir refseq_merged
-python merge_gbk.py ${REFSEQPATH}*.gbk > ${REFSEQPATH}ps.gbk
-
-# 
+#conda create -n biopython
+#conda activate biopython
+#conda install -c anaconda biopython
 export MYCONDAPATH=/home/bsalehe/miniconda3
+source ${MYCONDAPATH}/bin/activate biopython
+#
+python merge_gbk.py ${REFSEQPATH}*.gbk > ${REFSEQJOINEDGBK}ps.gbk
+conda deactivate
+# 
+#export MYCONDAPATH=/home/bsalehe/miniconda3
 
 # conda activate prokka
 source ${MYCONDAPATH}/bin/activate prokka
 
 # Run Prokka
-prokka --proteins ${REFSEQPATH}ps.gbk --outdir ${PROKKA_OUT}ps_annotation "$Assembly"/contigs.fasta
+prokka --proteins ${REFSEQJOINEDGBK}ps.gbk --outdir ${PROKKA_OUT}/ps_annotation "$Assembly"/contigs.fasta
 
 #convert all ref genbank files into fasta format
 #prokka-genbank_to_fasta_db ${REFSEQPATH}*.gbk > ${REFSEQPATH}ps.faa

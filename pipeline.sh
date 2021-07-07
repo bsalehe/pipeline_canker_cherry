@@ -101,5 +101,6 @@ if [ $? -ge 0 ]; then
     cp -r $QuastOutDir /data/scratch/bsalehe/canker_cherry_pipeline_output
     rm -rf $Assembly $QuastOutDir
     rm *.gz
+    rm -rf OUT_work ##BEAN workdir folder containing intermediate files
     mv slurm-*.out /data/scratch/bsalehe/canker_cherry_pipeline_output/slurm.out
 fi

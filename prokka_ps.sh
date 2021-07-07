@@ -43,7 +43,7 @@ Assembly="$1"
 export MYCONDAPATH=/home/bsalehe/miniconda3
 source ${MYCONDAPATH}/bin/activate biopython
 #
-python merge_gbk.py ${REFSEQPATH}*.gbk > ${REFSEQJOINEDGBK}ps.gbk
+#python merge_gbk.py ${REFSEQPATH}*.gbk > ${REFSEQJOINEDGBK}ps.gbk
 conda deactivate
 # 
 #export MYCONDAPATH=/home/bsalehe/miniconda3

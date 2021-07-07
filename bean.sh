@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 #
 prokka_out_fasta="$1"
 BEAN_PATH="/home/bsalehe/canker_cherry/software/BEAN-2.0/"
@@ -17,6 +17,6 @@ cp ${BEAN_PATH}pipeline_bean2.0_prediction_result_$(date +%Y%m%d%s).txt /data/sc
 # Remove previous BEAN working output directory
 rm -rf ${BEAN_PATH}OUT_work
 #
-# Copy previous prediction result file into new file
+# remove previous prediction result file 
 rm ${BEAN_PATH}prediction_result.txt
 

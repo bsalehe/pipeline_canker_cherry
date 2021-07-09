@@ -26,6 +26,7 @@ QuastOutDir=${Out}_quast_output
 Correction=""
 Cutoff="auto"
 READSDATADIR="/home/bsalehe/canker_cherry/data/"
+EFFECTIVE_T3_OUT_FILE=/data/scratch/bsalehe/canker_cherry_pipeline_output/${Out}_effective_t3.csv
 
 #########################################################
 
@@ -94,6 +95,15 @@ PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/ps_annotation/*.faa)
 ##################
 ./bean.sh $PROKKA_OUT
 #
+#####################
+
+####################
+# EffectiveT3
+###################
+#
+./effective_t3.sh $PROKKA_OUT $EFECTIVE_T3_OUT_FILE
+#
+###########################################
 #
 # Copy fastp, assembly, quast, genome_cov output files into /scratch/data/bsalehe/canker_cherry_pipeline_output
 if [ $? -ge 0 ]; then

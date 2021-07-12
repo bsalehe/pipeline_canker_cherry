@@ -85,7 +85,7 @@ The following settings were also done in the 'classify.pl' file:
 #### Setting necessary variables in bean.sh
 You may need to reset varaibles `BEAN_PATH` and `PIPELINE_OUT` in the file bean.sh. The former finds where BEAN classify.pl script is located while the later saves the prediction results of the bean in text format.
 
-###ADDITIONAL T3SS PREDICTION TOOLS
+### ADDITIONAL T3SS PREDICTION TOOLS
 We have added in the pipeline two more additional tools for predicting T3 effectors. These are:-
 - Deepredeff
 - EffectiveT3

@@ -26,7 +26,7 @@ QuastOutDir=${Out}_quast_output
 Correction=""
 Cutoff="auto"
 READSDATADIR="/home/bsalehe/canker_cherry/data/"
-EFFECTIVE_T3_OUT_FILE=/data/scratch/bsalehe/canker_cherry_pipeline_output/${Out}_effective_t3.csv
+EFFECTIVE_T3_OUT="/data/scratch/bsalehe/canker_cherry_pipeline_output/"
 
 #########################################################
 
@@ -90,7 +90,7 @@ PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/ps_annotation/*.faa)
 
 ##################
 #
-#BEAN2.0_T3SS_effector
+#T3SS: BEAN2.0_T3SS_effector
 #
 ##################
 ./bean.sh $PROKKA_OUT
@@ -98,12 +98,23 @@ PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/ps_annotation/*.faa)
 #####################
 
 ####################
-# EffectiveT3
+# T3SS: EffectiveT3
 ###################
 #
-./effective_t3.sh $PROKKA_OUT $EFECTIVE_T3_OUT_FILE
+./effective_t3.sh $PROKKA_OUT $EFECTIVE_T3_OUT
 #
 ###########################################
+
+###########################################
+#
+# T3SS: Deepredeff
+#
+##########################################
+#
+./deepredeff.sh $PROKKA_OUT
+#
+#############################################
+#
 #
 # Copy fastp, assembly, quast, genome_cov output files into /scratch/data/bsalehe/canker_cherry_pipeline_output
 if [ $? -ge 0 ]; then

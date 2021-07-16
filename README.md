@@ -85,13 +85,6 @@ The following settings were also done in the 'classify.pl' file:
 #### Setting necessary variables in bean.sh
 You may need to reset varaibles `BEAN_PATH` and `PIPELINE_OUT` in the file bean.sh. The former finds where BEAN classify.pl script is located while the later saves the prediction results of the bean in text format.
 
-#### Additional T3SS Prediction Tools
-We have added in the pipeline two more additional tools for predicting T3 effectors. These are:-
-- Deepredeff
-- EffectiveT3
-
-Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism.
-
-Two databases have been added from the installation directories of the source folders of the tools. These are:
-`module` and `db` which are for EffectiveT3 and Deepredeff respectively.
+#### Other T3SS Prediction Tools
+Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism.
 

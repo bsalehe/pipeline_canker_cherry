@@ -130,3 +130,12 @@ git push -u origin main
 git add cnn_t4se_v1.sh
 git commit -m "Add cnn_t4se file"
 git push -u origin main
+#
+# error: The following untracked working tree files would be overwritten by merge:
+	cnn_t4se.sh
+# Please move or remove them before you merge.
+# Aborting
+git add cnn_t4se.sh
+git stash
+git pull
+git push -u origin main

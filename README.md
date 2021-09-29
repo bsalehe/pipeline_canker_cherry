@@ -88,3 +88,9 @@ You may need to reset varaibles `BEAN_PATH` and `PIPELINE_OUT` in the file bean.
 #### Other T3SS Prediction Tools
 Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism.
 
+#### T4SS Prediction
+The major tool that was integrated in the pipeline is CNN-T4SE (https://idrblab.org/cnnt4se/). This uses convolution neural network (CNN) in building model. The publication of the tool is in (https://pubmed.ncbi.nlm.nih.gov/31860715/) It outperform many T4SS tools based on this review (https://www.frontiersin.org/articles/10.3389/fmicb.2020.580382/full). The script for this tool is named as cnn_t4se.sh
+
+#### T2SS, T5SS & T6SS prediction
+Macsyfinder tool was used for the prediction of T2, T5 and T6 Systems. It appears to be effcient and suitable to be used locally as many tools in these categories are unavailable or web-based. For more about this tool read its publication in Nature (http://www.nature.com/articles/srep23080). The script name for this tool is macsyf.sh.
+

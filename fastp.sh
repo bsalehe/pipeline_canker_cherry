@@ -4,7 +4,9 @@ R1="$1"
 R2="$2"
 OutDir="$3"
 OutDir1="$4"
-mkdir fastp_output
+
+fsname=$(basename $OutDir _L001_R1_trimmed.fastq.gz)
+mkdir ${fsname}_fastp_output
 
 #tell bash where to find conda
 export MYCONDAPATH=/home/bsalehe/miniconda3
@@ -26,18 +28,18 @@ die(){
 
 echo "Start running fastp..."
 
-if [ $# -eq 4 ]; then
-	fastp -i "$R1" -I "$R2" -o $OutDir -O $OutDir1
+if [ $# -eq 4 ]; then ## For PE reads
+	fastp -i "$R1" -I "$R2" --correction --trim_front1=10 --trim_front2=10 --trim_tail1=10 --trim_tail2=10 --cut_mean_quality=15 -5 -3 -r -o $OutDir -O $OutDir1 
 #check if the file is one and single-end
-elif [ $# -eq 2 ]; then
+elif [ $# -eq 2 ]; then  ## For SE reads
 	fastp -i $R1 -o $OutDir
 else echo "Error: Invalid number of argument. fastp didn't run" 1
 fi
-cp *.html fastp_output
-cp *.json fastp_output
+cp *.html ${fsname}_fastp_output
+cp *.json ${fsname}_fastp_output
 rm *.html *.json
-cp -r fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output
-rm -rf fastp_output
+cp -r ${fsname}_fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output
+rm -rf ${fsname}_fastp_output
 #
 #deactivate fastp
 conda deactivate

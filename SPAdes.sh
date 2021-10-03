@@ -17,8 +17,8 @@ echo "$Usage"
 R1="$1"
 R2="$2"
 OutDir="$3"
-Correction=$4
-Cutoff='auto'
+#Correction=$4
+Cutoff="$4"
 
 ## check the spades cutoff in the command
 if [ $5 ]; then
@@ -37,18 +37,18 @@ cp $CurPath/$R1 $WorkDir/$F_Read
 cp $CurPath/$R2 $WorkDir/$R_Read
 
 
-echo  "Running SPADES with the following in='$R1 $R2' $OutDir "
-echo "You have set read correction to: $Correction"
+echo "Running SPADES with the following in='$R1 $R2' $OutDir "
+#echo "You have set read correction to: $Correction"
 echo "Coverage cutoff set to $Cutoff"
 
-if [[ "$Correction" == 'correct' ]]; then
-   spades.py -k 21,33,55,77,99,127 -m 94 --phred-offset 33 --careful -1 $WorkDir/$F_Read -2 $WorkDir/$R_Read -t 16  -o $WorkDir/. --cov-cutoff "$Cutoff"
-elif [[ "$Correction" == 'only-assembler' ]]; then
-   spades.py -k 21,33,55,77,99,127 -m 94 --phred-offset 33 --careful --only-assembler -1 $WorkDir/$F_Read -2 $WorkDir/$R_Read -t 16  -o $WorkDir/. --cov-cutoff "$Cutoff"
-else
-   echo "Please set fourth option - whether you require read correction [correct / only-assembler]"
-   exit
-fi
+#if [[ "$Correction" == 'correct' ]]; then
+#   spades.py -k 21,33,55,77,99,127 --phred-offset 33 --careful -1 $WorkDir/$F_Read -2 $WorkDir/$R_Read -o $WorkDir/. --cov-cutoff "$Cutoff"
+#elif [[ "$Correction" == 'only-assembler' ]]; then
+spades.py -k 21,33,55,77,99,127  --phred-offset 33 --careful -1 $WorkDir/$F_Read -2 $WorkDir/$R_Read -o $WorkDir/. --cov-cutoff "$Cutoff"
+#else
+#   echo "Please set fourth option - whether you require read correction [correct / only-assembler]"
+#   exit
+#fi
 
 echo "Filtering contigs smaller than 500bp"
 mkdir -p $WorkDir/filtered_contigs

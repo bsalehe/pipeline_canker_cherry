@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # Reference sequence path containing gbk files
-REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
-REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
+#REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
+#REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
 PROKKA_DB="/data/scratch/bsalehe/prokka_db/"
 PROKKA_OUT="/data/scratch/bsalehe/prokka_out"
+
 #spades_out="$1"
 Assembly="$1"
+psname=$(dirname $Assembly)
 #### Prokka genome annotation #### 
  
 # 12.03.18 Downloaded all Pseudomonas syringae group complete genome NCBI accession numbers to build database for Prokka annotation
@@ -52,7 +54,7 @@ conda deactivate
 source ${MYCONDAPATH}/bin/activate prokka
 
 # Run Prokka
-prokka --proteins ${REFSEQJOINEDGBK}ps.gbk --outdir ${PROKKA_OUT}/ps_annotation "$Assembly"/contigs.fasta
+prokka --outdir ${PROKKA_OUT}/${psname} $Assembly
 
 #convert all ref genbank files into fasta format
 #prokka-genbank_to_fasta_db ${REFSEQPATH}*.gbk > ${REFSEQPATH}ps.faa

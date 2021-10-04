@@ -8,10 +8,6 @@
 
 echo Start running pipeline...
 export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
-#BEANSCRIPT="/home/bsalehe/canker_cherry/scripts/pipeline_canker_cherry"
-#DEEPSCRIPT="/home/bsalehe/canker_cherry/scripts/pipeline_canker_cherry"
-#EFFECTIVE_T3_OUT="/data/scratch/bsalehe/canker_cherry_pipeline_output/"
-
 #
 #################################################################
 
@@ -41,8 +37,8 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/*; do
 #
 #################################################################
 #
-    ./deepredeff.sh $PROKKA_OUT $sample_name
-    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${sample_name}_deepredeff_result.csv
+#    ./deepredeff.sh $PROKKA_OUT $sample_name
+#    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${sample_name}_deepredeff_result.csv
 #
 #################################################################
 
@@ -52,10 +48,19 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/*; do
 #
 #################################################################
 #
-    #./bean.sh $PROKKA_OUT $sample_name
+    ./bean.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 
 #################################################################
-done
+#
+# T4SS: CNNT4SE
+#
+#################################################################
+#
+    #./cnn_t4se.sh $PROKKA_OUT $sample_name
+#
+#################################################################
 
+
+done

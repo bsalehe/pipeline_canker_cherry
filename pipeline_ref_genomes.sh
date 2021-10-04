@@ -23,7 +23,7 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     ./prokka_ps.sh $Assembly_file
     #
-    PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}_out_prokka/PROKKA*.faa)
+    PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}/PROKKA*.faa)
     #
     #################################################################
     #
@@ -33,11 +33,11 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
-    # TXSS: MACSYFINDER
+    # TXSS: MACSYFINDER (PREDICTING ALL POTENTIAL EFFECTORS)
     #
     #################################################################
     #
-    #./macsyf.sh $PROKKA_OUT1 $refname
+    ./macsyf.sh $PROKKA_OUT1 $refname
 
     #################################################################
     #
@@ -45,8 +45,8 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
-    #./deepredeff.sh $PROKKA_OUT $refname
-    #mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
+    ./deepredeff.sh $PROKKA_OUT $refname
+    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
     #
     #################################################################
     #
@@ -54,21 +54,16 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
-    ./bean.sh $PROKKA_OUT
+    #./bean.sh $PROKKA_OUT
     #
     #################################################################
     #
     # T4SS: CNN-T4SE
     #
     #################################################################
-    ./cnne_t4se.sh $file $dsname
+    #./cnne_t4se.sh $file $dsname
     #
     #################################################################
-    #
-    #TXSS (All effectors together) : MACSYFINDER
-    #
-    #################################################################
-    ./macsyf.sh $file $dsname
-    #
-    #################################################################
+
+
 done

@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 R1="$1"
 R2="$2"

@@ -8,9 +8,9 @@
 
 echo Start running pipeline...
 export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
-#DEEPSCRIPT="/home/bsalehe/canker_cherry/scripts/pipeline_canker_cherry"
+#
 Assembly="/projects/pseudomonas_syringae/ref_genomes"
-
+#
 
 #####################################################################
 
@@ -23,7 +23,7 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     ./prokka_ps.sh $Assembly_file
     #
-    PROKKA_OUT=$(ls /data/scratch/bsalehe/prokka_out/${refname}_out_prokka/PROKKA*.faa)
+    PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}_out_prokka/PROKKA*.faa)
     #
     #################################################################
     #
@@ -33,11 +33,19 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
+    # TXSS: MACSYFINDER
+    #
+    #################################################################
+    #
+    #./macsyf.sh $PROKKA_OUT1 $refname
+
+    #################################################################
+    #
     # T3SS: Deepredeff
     #
     #################################################################
     #
-    ./deepredeff.sh $PROKKA_OUT $refname
+    #./deepredeff.sh $PROKKA_OUT $refname
     #mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
     #
     #################################################################

@@ -21,9 +21,9 @@ Assembly="/projects/pseudomonas_syringae/ref_genomes"
 for Assembly_file in $(ls ${Assembly}/*.fasta); do
     refname=$(basename $Assembly_file .fasta)
     #
-    ./prokka_ps.sh $Assembly_file
+    ./prokka_ps_rfgenomes.sh $Assembly_file $refname
     #
-    PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}/PROKKA*.faa)
+    #PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}/PROKKA*.faa)
     #
     #################################################################
     #
@@ -37,7 +37,7 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
-    ./macsyf.sh $PROKKA_OUT1 $refname
+    #./macsyf.sh $PROKKA_OUT1 $refname
 
     #################################################################
     #
@@ -45,8 +45,8 @@ for Assembly_file in $(ls ${Assembly}/*.fasta); do
     #
     #################################################################
     #
-    ./deepredeff.sh $PROKKA_OUT $refname
-    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
+    #./deepredeff.sh $PROKKA_OUT $refname
+    #mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
     #
     #################################################################
     #

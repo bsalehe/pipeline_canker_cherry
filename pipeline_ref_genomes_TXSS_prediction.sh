@@ -18,10 +18,9 @@ export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
 
 #####################################################################
 
-for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*
-#for Assembly_file in $(ls ${Assembly}/*.fasta); do
+for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*; do
     #
-    refname=$(basename $prokka_dir);
+    refname=$(basename $prokka_dir)
     PROKKA_OUT1=${prokka_dir}/PROKKA_*.faa
     #
     #PROKKA_OUT1=$(ls /data/scratch/bsalehe/prokka_out/${refname}/PROKKA*.faa)
@@ -38,7 +37,7 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*
     #
     #################################################################
     #
-    ./macsyf.sh $PROKKA_OUT1 $refname
+    #./macsyf.sh $PROKKA_OUT1 $refname
 
     #################################################################
     #
@@ -46,8 +45,8 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*
     #
     #################################################################
     #
-    ./deepredeff.sh $PROKKA_OUT $refname
-    #mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
+    ./deepredeff.sh $PROKKA_OUT1
+    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
     #
     #################################################################
     #
@@ -65,6 +64,5 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*
     #./cnne_t4se.sh $file $refname
     #
     #################################################################
-
 
 done

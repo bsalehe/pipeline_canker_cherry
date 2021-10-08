@@ -24,4 +24,5 @@ rm -rf OUT_work
 #rm ${BEAN_PATH}prediction_result.txt
 #rm prediction_result.txt
 #
+# return to the main pipeline  working directory
 cd -

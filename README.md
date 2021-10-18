@@ -111,5 +111,5 @@ There paths for pipeline outputs are:
 - Macysyfinder predictions (all TiSS systems) : /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS
 - Genomics islands prediction : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
 - Prophage prediction : 
--- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy, 
--- phaster: /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster
+-- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
+-- phaster : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster

@@ -98,7 +98,7 @@ The documentation about the inputs and outputs of the tool is here: https://macs
 ### Phase 3: Phage Analysis and Genomic Islands Identification
 The third phase is to identify genomic island regions and predicting availability of phages in the annotated sequences.
 Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The script files 'genomicislands.sh', 'pipel
-ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' are part of of the pipeline to predict genomic island regions in each of the annotated sample sequences.
+ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integrated in the pipeline to predict genomic island regions in each of the annotated sample sequences. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script file named as 'pipeline_phase3_phage.sh'
 
 ## Pipeline Outputs
 There paths for pipeline outputs are:
@@ -119,5 +119,5 @@ There paths for pipeline outputs are:
 - IslandPath : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
 
 ### Prophage prediction
-- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
+- phispy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
 - phaster : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster

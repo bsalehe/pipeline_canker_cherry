@@ -2,7 +2,7 @@
 
 The pipeline runs through fastq files to produce predicted effectors which will be used for further downstreaming functional and phylogenetic analysis.
 
-### Phase 1: Pre-prcessing
+### Phase 1: Pre-prcessing, Assembly and Annotation
 
 For the first phase when running, the pipeline is expected to do the following:
 - Pre-processing fastq files using fastp.sh script file running fastp (https://github.com/OpenGene/fastp) tool. The fastp final output will be stored in the same directory where the pipeline script runs.
@@ -57,7 +57,7 @@ The prokka script should be conifgured accordingly. In my case I did the followi
 ```
 Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the prokka_script accordingly excluding step 6.
 
-### Phase 2: Downstream analysis for Effectors prediction and phylogenomic analysis
+### Phase 2: Downstream analysis for Effectors prediction
 The second phase of the pipeline is expected to do the following:
 - Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0 (http://systbio.cau.edu.cn/bean).
 - Predicting the T6SS  effectors.
@@ -92,5 +92,24 @@ Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tens
 The major tool that was integrated in the pipeline is CNN-T4SE (https://idrblab.org/cnnt4se/). This uses convolution neural network (CNN) in building model. The publication of the tool is in (https://pubmed.ncbi.nlm.nih.gov/31860715/) It outperform many T4SS tools based on this review (https://www.frontiersin.org/articles/10.3389/fmicb.2020.580382/full). The script for this tool is named as cnn_t4se.sh
 
 #### T1SS, T2SS, T5SS & T6SS prediction
-Macsyfinder tool was used for the prediction of T1, T2, T5 and T6 Systems. For more about this tool please read its publication in Nature (http://www.nature.com/articles/srep23080). The script name for this tool is macsyf.sh
+Macsyfinder tool is used for the prediction of T1, T2, T5 and T6 Systems. For more about this tool please read its publication in Nature (http://www.nature.com/articles/srep23080). The script name for this tool is macsyf.sh
 The documentation about the inputs and outputs of the tool is here: https://macsyfinder.readthedocs.io/_/downloads/en/latest/pdf. To work with this tool you need to install TXSS models using macsydata tool which comes with Macsyfinder. Instruction to install Macsyfinder is here: https://macsyfinder.readthedocs.io/en/latest/. Instructions to install TXSS models is here: https://github.com/macsy-models/TXSS.
+
+### Phase 3: Phage Analysis and Genomic Islands Identification
+The third phase is to identify genomic island regions and predicting availability of phages in the annotated sequences.
+Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The script files 'genomicislands.sh', 'pipel
+ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' are part of of the pipeline to predict genomic island regions in each of the annotated sample sequences.
+
+## Pipeline Outputs
+There paths for pipeline outputs are:
+
+- Preprocessing and assembly - /data/scratch/bsalehe/canker_cherry_pipeline_output/*_coverage.txt  /data/scratch/bsalehe/canker_cherry_pipeline_output/*_quast_out/ /data/scratch/bsalehe/canker_cherry_pipeline_output/*_fastp_out/
+- Annotation : /data/scratch/bsalehe/prokka_out/
+- T3SS deepredeff : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_deepredeff_result.csv
+-- For ref genomes strains : /data/scratch/bsalehe/canker_cherry_pipeline_output/Pss9097_genome_deepredeff_result.csv, 
+/data/scratch/bsalehe/canker_cherry_pipeline_output/R15244_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R2Leaf_genome_deepredeff_result.csv
+- Macysyfinder predictions (all TiSS systems) : /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS
+- Genomics islands prediction : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
+- Prophage prediction : 
+-- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy, 
+-- phaster: /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster

@@ -103,13 +103,21 @@ ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' are part of of th
 ## Pipeline Outputs
 There paths for pipeline outputs are:
 
-- Preprocessing and assembly - /data/scratch/bsalehe/canker_cherry_pipeline_output/*_coverage.txt  /data/scratch/bsalehe/canker_cherry_pipeline_output/*_quast_out/ /data/scratch/bsalehe/canker_cherry_pipeline_output/*_fastp_out/
-- Annotation : /data/scratch/bsalehe/prokka_out/
-- T3SS deepredeff : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_deepredeff_result.csv
--- For ref genomes strains : /data/scratch/bsalehe/canker_cherry_pipeline_output/Pss9097_genome_deepredeff_result.csv, 
-/data/scratch/bsalehe/canker_cherry_pipeline_output/R15244_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R2Leaf_genome_deepredeff_result.csv
-- Macysyfinder predictions (all TiSS systems) : /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS
-- Genomics islands prediction : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
-- Prophage prediction : 
--- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
--- phaster : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster
+### Preprocessing and assembly 
+- Coverage : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_coverage.txt  
+- Quast : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_quast_out/ 
+- Fastp : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_fastp_out/
+
+### Annotation
+- PROKKA : /data/scratch/bsalehe/prokka_out/
+
+### Effector prediction 
+- T3SS (Deepredeff) : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_deepredeff_result.csv. For ref genomes strains : /data/scratch/bsalehe/canker_cherry_pipeline_output/Pss9097_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R15244_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R2Leaf_genome_deepredeff_result.csv
+- All TiSS systems (Macysyfinder) : /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS
+
+### Genomics islands prediction
+- IslandPath : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
+
+### Prophage prediction
+- phspy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
+- phaster : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster

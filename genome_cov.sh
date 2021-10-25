@@ -15,7 +15,7 @@ echo "Finished computing coverage $(basename $R1 _L001_R1_trimmed.fastq.gz)"
 
 # Copy coverage output into /data/scratch/bsalehe/
 #
-cp ${gsname}_coverage.txt /data/scratch/bsalehe/canker_cherry_pipeline_output/
+cp ${gsname}_coverage.txt /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/
 #
 rm ${gsname}_coverage.txt
 

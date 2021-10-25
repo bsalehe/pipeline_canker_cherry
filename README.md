@@ -60,8 +60,9 @@ Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the 
 
 ### Phase 2: Downstream analysis for Effectors prediction
 The second phase of the pipeline is expected to do the following:
-- Taking the output from Prokka and use them to predict potential T1SS, T2SS, T3SS, T4SS, T5SS, & T6SS  effectors 
+- Taking the output from Prokka and use them to predict potential T1SS, T2SS, T3SS, T4SS, T5SS, & T6SS  effectors. 
 - Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis.
+- Pipeline script for running this phase is pipeline_phase2.sh. Please type `sbatch pipeline_phase2.sh`
 
 #### Configuring BEAN-2.0 for T3SS (http://systbio.cau.edu.cn/bean)
 BEAN-2.0 comes with the 'classify.pl' script, which requires several perl modules to be in your PERL5LIB path in addition to those needed to run
@@ -97,7 +98,10 @@ The documentation about the inputs and outputs of the tool is here: https://macs
 ### Phase 3: Phage Analysis and Genomic Islands Identification
 The third phase is to identify genomic island regions and predicting availability of phages in the annotated sequences.
 Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The script files 'genomicislands.sh', 'pipel
-ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integrated in the pipeline to predict genomic island regions in each of the annotated sample sequences. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script file named as 'pipeline_phase3_phage.sh'
+ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integrated in the pipeline to predict genomic island regions in each of the annotated sample sequences. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
+To run this pipeline phase please type `sbatch pipeline_phase3_phage.sh`, `sbatch pipeline_phase3_phage_ref_strains.sh`, `sbatch pipeline_phase3_gi.sh` and `sbatch pipeline_ref_genomes_GIs_prediction.sh`
+### Phase 4: Orthologoues analysis
+
 
 ## Pipeline Outputs
 There paths for pipeline outputs are:

@@ -38,7 +38,7 @@ fi
 cp *.html ${fsname}_fastp_output
 cp *.json ${fsname}_fastp_output
 rm *.html *.json
-cp -r ${fsname}_fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output
+cp -r ${fsname}_fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/
 rm -rf ${fsname}_fastp_output
 #
 #deactivate fastp

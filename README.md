@@ -100,8 +100,10 @@ The third phase is to identify genomic island regions and predicting availabilit
 Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The script files 'genomicislands.sh', 'pipel
 ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integrated in the pipeline to predict genomic island regions in each of the annotated sample sequences. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
 To run this pipeline phase please type `sbatch pipeline_phase3_phage.sh`, `sbatch pipeline_phase3_phage_ref_strains.sh`, `sbatch pipeline_phase3_gi.sh` and `sbatch pipeline_ref_genomes_GIs_prediction.sh`
-### Phase 4: Orthologoues analysis
 
+### Phase 4: Orthologoues analysis
+The fourth phase of the pipeline is analyse the orthologues in the sequence data. The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5.4) was used in this analysis. The script 'orthofinder.sh' was integrated in the pipeline script file 'pipeline_phase4_orthofind.sh'.
+To run this phase please type `sbatch pipeline_phase4_orthofind.sh` and `sbatch pipeline_phase4_orthofind_ref_strains.sh`.
 
 ## Pipeline Outputs
 There paths for pipeline outputs are:

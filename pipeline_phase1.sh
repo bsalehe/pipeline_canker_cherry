@@ -51,7 +51,7 @@ for file1 in *_R1_trimmed.fastq.gz; do
 #
 ##############################################################
         ./quast.sh ${sname}/scaffolds.fasta ${sname}_quast_out
-        mv ${sname}_quast_out /data/scratch/bsalehe/canker_cherry_pipeline_output
+        mv ${sname}_quast_out /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/
 
 ##############################################################
 #

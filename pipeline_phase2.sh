@@ -38,7 +38,7 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/*; do
 #################################################################
 #
 #    ./deepredeff.sh $PROKKA_OUT 
-#    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${sample_name}_deepredeff_result.csv
+#    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff/${sample_name}_deepredeff_result.csv
 #
 #################################################################
 

@@ -139,3 +139,61 @@ git add cnn_t4se.sh
 git stash
 git pull
 git push -u origin main
+
+###################################################################
+### 25/10/2021
+
+# Copying all output files to new paths
+
+## Copying assembly and pre-processing files
+for file in ./HT*_coverage.txt; do  cp $file assembly_pre-processing/Tracy/1/; done
+
+for file in ./SD*_coverage.txt; do  cp $file assembly_pre-processing/Tracy/1/; done
+
+for d in ./HT*_fastp_output; do  cp -r $d assembly_pre-processing/Tracy/1/; done
+
+for d in ./SD*_fastp_output; do  cp -r $d assembly_pre-processing/Tracy/1/; done
+
+for d in ./HT*_quast_out; do  cp -r $d assembly_pre-processing/Tracy/1/; done
+
+for d in ./SD*_quast_out; do  cp -r $d assembly_pre-processing/Tracy/1/; done
+
+## Removing all output assembly and pre-processing files from /data/scratch/bsalehe/canker_cherry_pipeline_output
+rm ./HT*_coverage.txt
+
+rm ./SD*_coverage.txt
+
+rm -r ./HT*_fastp_output
+
+rm -r ./SD*_fastp_output
+
+rm -r ./HT*_quast_out
+
+rm -r ./SD*_quast_out
+
+## Copying analysis files (predicted effectors, orthologs, phages & genomic islands) from /data/scratch/bsalehe/canker_cherry_pipeline_output to new directory analysis/Tracy/1/
+for file in ./HT*_deepredeff_result_.csv; do  cp $file analysis/Tracy/1/T3/deepredeff/; done
+
+for file in ./SD*_deepredeff_result_.csv; do  cp $file analysis/Tracy/1/T3/deepredeff/; done
+
+for file in ./*_genome_deepredeff_result_.csv; do  cp $file analysis/Tracy/1/T3/deepredeff/; done
+
+cp -r TXSS/ analysis/Tracy/1/all_TiSS/macsyfinder/
+
+cp -r gislandviewer analysis/Tracy/1/genomic_islands/
+
+cp -r orthology analysis/Tracy/1/
+
+cp -r phages analysis/Tracy/1/
+
+
+## Removing all output (predicted effectors, orthologs, phages & genomic islands) from /data/scratch/bsalehe/canker_cherry_pipeline_output
+rm *.csv
+
+rm -r gislandviewer
+
+rm -r orthology
+
+rm -r phages
+
+rm -r TXSS/ 

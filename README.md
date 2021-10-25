@@ -11,60 +11,59 @@ For the first phase when running, the pipeline is expected to do the following:
 - Performing assembly quality analysis using quast.sh script running quast (http://quast.sourceforge.net/).
 - Performing genome annotation using prokka_ps.sh script running prokka (https://github.com/tseemann/prokka).
 
-Please run the pipeline in the slurm environment by typing the following command:
+For performing this phase please run the pipeline in the slurm environment by typing the following command:
 ```
-sbatch pipeline.sh
+sbatch pipeline_phase1.sh
 ```
-The pipeline.sh script file should be in the same directory with other script files.
+The pipeline_phase1.sh script file should be in the same directory with other script files.
 Before running the pipeline script open it using vim or any text editor and please change accordingly READSDATADIR path where the data reads are located.
-Example `READSDATADIR="/home/bsalehe/canker_cherry/data/"`
+Example `READSDATADIR=/home/bsalehe/canker_cherry/data/yang/`
+
 
 You may need to change the PROKKA_OUT variable which holds the final prokka final fasta output file for being used as an input for effector prediction using BEAN2.0, and also change the path for reference gbk files in the 'prokka_ps.sh' script file.
-Example `REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"`. 
+Example `PROKKA_DB="/data/scratch/bsalehe/prokka_db` `PROKKA_OUT="/data/scratch/bsalehe/prokka_out"`. 
 
 The prokka script should be conifgured accordingly. In my case I did the following:
 
 1. I installed ncbi-genome-download tool using conda. This is not needed at the moment
-`conda create -n ncbi_genome_download`
-`conda install -c bioconda ncbi-genome-download`
+`#conda create -n ncbi_genome_download`
+`#conda install -c bioconda ncbi-genome-download`
 
 2. I activated the ncbi-genome-download
-`conda activate ncbi-genome-download`
+`#conda activate ncbi-genome-download`
 
 3. I downloaded ref genomes from ncbi
-'ncbi-genome-download -F genbank --genera "Pseudomonas syringae" bacteria -v --flat-output`
+'#ncbi-genome-download -F genbank --genera "Pseudomonas syringae" bacteria -v --flat-output`
 
 4. I moved all gbff.gz to a single folder
-`mv *.gbff.gz refseq/`
+`#mv *.gbff.gz refseq/`
 
 5. I decompressed files from .gbff.gz to .gbk
 ```
-  for file in refseq/*.gbff.gz; do
-       zcat $file > refseq/$(basename $file .gbff.gz).gbk
-  done
+  #for file in refseq/*.gbff.gz; do
+  #     zcat $file > refseq/$(basename $file .gbff.gz).gbk
+  #done
 ```
 
 6. I copied some few genomes to new folder for testing
 ```
-   mkdir refseq1
-   cp refseq/*.1_C*.gbk refseq1/
+   #mkdir refseq1
+   #cp refseq/*.1_C*.gbk refseq1/
 ```
 
 7. I merged all .gbk files into single gbk file using adapted merge_gbk.py script
 ```
-   mkdir refseq_merged
-   python merge_gbk.py refseq1/*.gbk > refseq_merged/ps.gbk
+   #mkdir refseq_merged
+   #python merge_gbk.py refseq1/*.gbk > refseq_merged/ps.gbk
 ```
 Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the prokka_script accordingly excluding step 6.
 
 ### Phase 2: Downstream analysis for Effectors prediction
 The second phase of the pipeline is expected to do the following:
-- Taking the output from Prokka and use them to predict potential T3SS effectors using BEAN2.0 (http://systbio.cau.edu.cn/bean).
-- Predicting the T6SS  effectors.
-- Predicting T2SS effectors.
-- Perform prophage and phylogenetic analysis.
+- Taking the output from Prokka and use them to predict potential T1SS, T2SS, T3SS, T4SS, T5SS, & T6SS  effectors 
+- Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis.
 
-#### Configuring BEAN-2.0
+#### Configuring BEAN-2.0 for T3SS (http://systbio.cau.edu.cn/bean)
 BEAN-2.0 comes with the 'classify.pl' script, which requires several perl modules to be in your PERL5LIB path in addition to those needed to run
 pfam_scan module. These modules include `Class::Load::Load` `Eval::Closure` `IPC::Run` `Package::DeprecationManager' `Test::Fatal`.
 
@@ -104,20 +103,11 @@ ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integra
 There paths for pipeline outputs are:
 
 ### Preprocessing and assembly 
-- Coverage : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_coverage.txt  
-- Quast : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_quast_out/ 
-- Fastp : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_fastp_out/
+- /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing
 
 ### Annotation
 - PROKKA : /data/scratch/bsalehe/prokka_out/
 
-### Effector prediction 
-- T3SS (Deepredeff) : /data/scratch/bsalehe/canker_cherry_pipeline_output/*_deepredeff_result.csv. For ref genomes strains : /data/scratch/bsalehe/canker_cherry_pipeline_output/Pss9097_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R15244_genome_deepredeff_result.csv, /data/scratch/bsalehe/canker_cherry_pipeline_output/R2Leaf_genome_deepredeff_result.csv
-- All TiSS systems (Macysyfinder) : /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS
+### Downstream analysis: Effectors, Genomic islands, Prophage & Orthologues
+- /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis
 
-### Genomics islands prediction
-- IslandPath : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer
-
-### Prophage prediction
-- phispy : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy 
-- phaster : /data/scratch/bsalehe/canker_cherry_pipeline_output/gislandviewer/phages/phispy/phaster

@@ -34,7 +34,7 @@ if [ $(grep "^>" $file | wc -l) -gt 1 ]; then ## if the number of sequence is mo
     mv ${fname}.out.acc /scratch/software/T4/CNN_T4SE/CNNT4SE/${fname}.out.acc
     cd /scratch/software/T4/CNN_T4SE/CNNT4SE
     ./predict PSSSA ${fname}.out.ss ${fname}.out.acc
-    awk 'FNR==2{print $0}' ResultPSSSA.csv >> /data/scratch/bsalehe/canker_cherry_pipeline_output/${dsname}_prediction_results_CNN-T4SE_30082021.csv
+    awk 'FNR==2{print $0}' ResultPSSSA.csv >> /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1//T4/CNNT4SE/${dsname}_prediction_results_CNN-T4SE_30082021.csv
     #mv ResultPSSSA.csv /data/scratch/bsalehe/canker_cherry_pipeline_output/${fname}_prediction_results_CNN-T4SE.csv
     #cat /data/scratch/bsalehe/canker_cherry_pipeline_output/${fname}_prediction_results_CNN-T4SE.csv >> /data/scratch/bsalehe/canker_cherry_pipeline_output/${dsname}_prediction_results_CNN-T4SE.csv
     rm ResultPSSSA.csv 

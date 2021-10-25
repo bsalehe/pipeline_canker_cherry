@@ -14,7 +14,7 @@ export MYCONDAPATH=/home/bsalehe/miniconda3
 #activate  fastp
 source ${MYCONDAPATH}/bin/activate macsyf
 
-macsyfinder -m TXSS all --sequence-db $R1 --db-type ordered_replicon --models-dir /home/bsalehe/.macsyfinder/data -o /data/scratch/bsalehe/canker_cherry_pipeline_output/TXSS/${R2}
+macsyfinder -m TXSS all --sequence-db $R1 --db-type ordered_replicon --models-dir /home/bsalehe/.macsyfinder/data -o /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/all_TiSS/macsyfinder/TXSS/${R2}
 
 conda deactivate
 

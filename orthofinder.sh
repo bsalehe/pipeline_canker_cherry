@@ -9,7 +9,7 @@ WORKDIR="/home/bsalehe/canker_cherry/software/OrthoFinder_source/"
 
 cd $WORKDIR
 
-python3 orthofinder.py -f $INPUTDIR -o /data/scratch/bsalehe/canker_cherry_pipeline_output/orthology/OrthoFinder/Tracy/
+python3 orthofinder.py -f $INPUTDIR -o /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/orthology/OrthoFinder/refgenomes/
 
 cd -
 

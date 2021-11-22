@@ -18,7 +18,9 @@ R1="$1"
 R2="$2"
 OutDir="$3"
 #Correction=$4
-Cutoff="$4"
+Cutoff="off"
+
+sname=$(basename $R1 _L001_R1_trimmed.fastq.gz)
 
 ## check the spades cutoff in the command
 if [ $5 ]; then
@@ -53,7 +55,7 @@ spades.py -k 21,33,55,77,99,127  --phred-offset 33 --careful -1 $WorkDir/$F_Read
 echo "Filtering contigs smaller than 500bp"
 mkdir -p $WorkDir/filtered_contigs
 FilterDir=/home/gomeza/git_repos/scripts/bioinformatics_tools/Assembly_qc
-$FilterDir/filter_contigs.py $WorkDir/scaffolds.fasta 500 > $WorkDir/filtered_contigs/contigs_min_500bp.fasta
+python2 $FilterDir/filter_contigs.py $WorkDir/contigs.fasta 500 > $WorkDir/filtered_contigs/contigs_min_500bp.fasta
 
 rm $WorkDir/$F_Read
 rm $WorkDir/$R_Read

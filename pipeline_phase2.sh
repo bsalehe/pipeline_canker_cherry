@@ -29,7 +29,7 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/*; do
 #
 #################################################################
 #
-    #./macsyf.sh $PROKKA_OUT $sample_name
+    ./macsyf.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 #
@@ -48,7 +48,7 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/*; do
 #
 #################################################################
 #
-    ./bean.sh $PROKKA_OUT $sample_name
+#    ./bean.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 

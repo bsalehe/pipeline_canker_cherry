@@ -37,7 +37,7 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*; do
     #
     #################################################################
     #
-    #./macsyf.sh $PROKKA_OUT1 $refname
+    ./macsyf.sh $PROKKA_OUT1 $refname
 
     #################################################################
     #
@@ -45,8 +45,8 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*; do
     #
     #################################################################
     #
-    ./deepredeff.sh $PROKKA_OUT1
-    mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
+    #./deepredeff.sh $PROKKA_OUT1
+    #mv deepredeff_output /data/scratch/bsalehe/canker_cherry_pipeline_output/${refname}_deepredeff_result.csv
     #
     #################################################################
     #

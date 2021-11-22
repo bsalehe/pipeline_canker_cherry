@@ -197,3 +197,10 @@ rm -r orthology
 rm -r phages
 
 rm -r TXSS/ 
+
+###################################################################################
+####### 01/11/2021
+
+# Extracting sequence from the thord column of the filtered Deepredeff predicted T3 effectors for further BLASTING
+cd /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff
+for file in *_deepredeff_result_filtered.csv ; do  name=$(basename $file .csv); awk -F, 'NR>1 {print ">"$2 "\n" $3}' $file > ${name}_sequence.fasta; done

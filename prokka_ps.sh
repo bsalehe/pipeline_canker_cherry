@@ -4,7 +4,7 @@
 #REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
 #REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
 PROKKA_DB="/data/scratch/bsalehe/prokka_db/"
-PROKKA_OUT="/data/scratch/bsalehe/prokka_out"
+PROKKA_OUT="/data/scratch/bsalehe/prokka_out/test"
 
 #spades_out="$1"
 Assembly="$1"

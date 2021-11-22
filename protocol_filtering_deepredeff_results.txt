@@ -1,0 +1,24 @@
+1. Open using MS Excel the generated deepredeff csv file
+    - All of the columns (#SN protein name, #SN sequence, #SN score predicted outputs[effector, non-effector]) appear to be in a simgle large column.
+2. Separate each supposedly independent column (<#SN column name> [#SN is serial number]) with a new inserted row between them.
+3. Higlight (shift+ctrl+down/upper arrow keys) each content of the <#SN column name> and copy (ctrl+p).
+4. Open a new workbook.
+5. Paste the content to the new workbook.
+6. Select Data > "Text to Columns" pane
+   - Separate data by space, click "Next", "Next" and then click "Finish"
+7. Repeat step 2 to 6 for each <#SN column name> in a single csv file
+   - For <#SN protein name>;do the following after pasting the content
+     - Paste the content into different worksheet
+     - Concatenate the third column contents into single column using the following formula (note two spaces) <=CONCATENATE(C2,"  ",D2,"  ",E2,"  ",F2,"  ",G2,"  ",H2,"  ",I2,"  ",J2,"  ",K2)>
+     - Copy the sequence name and concatenated protein name and paste into the newly opened workbook.
+     - After pasting name the concatenated new column as "Protein name"
+8. Save newly opened workbook.
+   - Before saving you may delete #SN column
+9. Go to/Open newly saved file.
+   - Select Home > Sort & Filter pane.
+   - Filter s_score column
+     - Use condition "greater or equal to" 0.9
+   - Copy the filtered content into new workbook
+   - Save the new workbook with new name (E.g. "sample_name_filtered.csv")
+10. Repeat step 1 to 9 for each csv file.
+ 

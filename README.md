@@ -86,7 +86,7 @@ The following settings were also done in the 'classify.pl' file:
 You may need to reset varaibles `BEAN_PATH` and `PIPELINE_OUT` in the file bean.sh. The former finds where BEAN classify.pl script is located while the later saves the prediction results of the bean in text format.
 
 #### Other T3SS Prediction Tools
-Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism.
+Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism. The result of Deepredeff were further filtered by using script "blast_deepredeff_results.sh" to reduce false positives as some of the predicted T3 are in fact other effectors. The file "protocol_filtering_deepredeff_results.txt" describes the steps used for filtering. 
 
 #### T4SS Prediction
 The major tool that was integrated in the pipeline is CNN-T4SE (https://idrblab.org/cnnt4se/). This uses convolution neural network (CNN) in building model. The publication of the tool is in (https://pubmed.ncbi.nlm.nih.gov/31860715/) It outperform many T4SS tools based on this review (https://www.frontiersin.org/articles/10.3389/fmicb.2020.580382/full). The script for this tool is named as cnn_t4se.sh

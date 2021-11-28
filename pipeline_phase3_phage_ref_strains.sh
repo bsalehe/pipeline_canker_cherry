@@ -11,7 +11,7 @@ export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
 #
 #################################################################
 
-# PHASE 3: GENOMIC ISLANDS PREDICTION FROM PROKKA ANNOTATION FILES
+# PHASE 3: PHAGE IDENTIFICATION FROM PROKKA ANNOTATION FILES
 
 #################################################################
 
@@ -25,12 +25,21 @@ for prokka_dir in /data/scratch/bsalehe/prokka_out/refgenomes/*; do
 
 #################################################################
 #
-# GENOMI ISLANDS: IslandPath-DIMOB
+# PHAGE : Using PHASTER and PHISPY
 #
 #################################################################
+#
+    ./phage_analysis_phaster.sh $PROKKA_OUT $out_dir
+#
+##################################################################
+#################################################################
+#
+#    PHISPY
 #
     ./phage_analysis.sh $PROKKA_OUT $out_dir
 #
 ##################################################################
+
+
 
 done

@@ -31,18 +31,22 @@ die(){
 
 echo "Start running fastp..."
 
-if [ $# -eq 2 ]; then ## For PE reads
+#if [ $# -eq 2 ]; then ## For PE reads
 	fastp -i "$R1" -I "$R2" --correction --trim_front1=10 --trim_front2=10 --trim_tail1=10 --trim_tail2=10 --cut_mean_quality=15 -5 -3 -r -o $OutDir -O $OutDir1 
 #check if the file is one and single-end
-elif [ $# -eq 1 ]; then  ## For SE reads
-	fastp -i $R1 -o $OutDir
-else echo "Error: Invalid number of argument. fastp didn't run" 
-exit 1
-fi
+#elif [ $# -eq 1 ]; then  ## For SE reads
+#	fastp -i $R1 -o $OutDir
+#else echo "fastp didn't run" 
+#exit 1
+#fi
 cp *.html ${fsname}_fastp_output
 cp *.json ${fsname}_fastp_output
 rm *.html *.json
-cp -r ${fsname}_fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/new/
+
+current_time=$(date "+%Y%m%d%H%M%S")
+mkdir -p /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/$current_time
+
+cp -r ${fsname}_fastp_output /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/$current_time
 rm -rf ${fsname}_fastp_output
 #
 #deactivate fastp

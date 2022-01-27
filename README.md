@@ -2,56 +2,66 @@
 
 The pipeline runs through fastq files to produce predicted effectors which will be used for further downstreaming functional and phylogenetic analysis.
 
-### Phase 1: Pre-prcessing, Assembly and Annotation
+The pipeline has two main phases
+### Phase 1: Pre-prcessing, Assembly and Annotation with PROKKA
+### Phase 2: T3 effector prediction, phage prediction, genomic island prediction, and orthologs finding.
 
-For the first phase when running, the pipeline is expected to do the following:
+In the first phase, the pipeline is expected to do the following:
 - Pre-processing fastq files using fastp.sh script file running fastp (https://github.com/OpenGene/fastp) tool. The fastp final output will be stored in the same directory where the pipeline script runs.
 - Performing genome assembly using SPAdes.sh script file running SPAdes (http://bioinf.spbau.ru/spades).
 - Perform coverage analysis using genme_cov.sh which runs cuont.pl.
 - Performing assembly quality analysis using quast.sh script running quast (http://quast.sourceforge.net/).
 - Performing genome annotation using prokka_ps.sh script running prokka (https://github.com/tseemann/prokka).
 
-For performing this phase please run the pipeline in the slurm environment by typing the following command:
-```
-sbatch pipeline_phase1.sh
-```
-The pipeline_phase1.sh script file should be in the same directory with other script files.
-Before running the pipeline script open it using vim or any text editor and please change accordingly READSDATADIR path where the data reads are located.
+The pipeline.sh script file should be in the same directory with other script files.
+Before running the pipeline script open it using vim or any text editor and please change accordingly the following variables:-
+
+READSDATADIR path where the sample reads are located.
 Example `READSDATADIR=/home/bsalehe/canker_cherry/data/yang/`
 
+QUASTOUTDIR path where the Quast output files are going to be stored.
+Example `QUASTOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/"`
 
-You may need to change the PROKKA_OUT variable which holds the final prokka final fasta output file for being used as an input for effector prediction using BEAN2.0, and also change the path for reference gbk files in the 'prokka_ps.sh' script file.
-Example `PROKKA_DB="/data/scratch/bsalehe/prokka_db` `PROKKA_OUT="/data/scratch/bsalehe/prokka_out"`. 
+PROKKAOUTDIR path where the PROKKA output files are located.
+Example `PROKKAOUTDIR="/data/scratch/bsalehe/prokka_out/Tracy/refgenomes/"`
 
-The prokka script should be conifgured accordingly. In my case I did the following:
+DEEPREDEFFOUTDIR pathe where the Deepredeff output files are going to be stored.
+Example 'DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff"`
 
-1. I installed ncbi-genome-download tool using conda. This is not needed at the moment
+Please run the pipeline in the slurm environment by typing the following command:
+```
+sbatch pipeline.sh
+```
+
+The prokka script should be conifgured accordingly:
+
+1. Install ncbi-genome-download tool using conda. This is not needed at the moment
 `#conda create -n ncbi_genome_download`
 `#conda install -c bioconda ncbi-genome-download`
 
-2. I activated the ncbi-genome-download
+2. Activate the ncbi-genome-download
 `#conda activate ncbi-genome-download`
 
-3. I downloaded ref genomes from ncbi
+3. Download ref genomes from ncbi
 '#ncbi-genome-download -F genbank --genera "Pseudomonas syringae" bacteria -v --flat-output`
 
-4. I moved all gbff.gz to a single folder
+4. Move all gbff.gz to a single folder
 `#mv *.gbff.gz refseq/`
 
-5. I decompressed files from .gbff.gz to .gbk
+5. Decompress files from .gbff.gz to .gbk
 ```
   #for file in refseq/*.gbff.gz; do
   #     zcat $file > refseq/$(basename $file .gbff.gz).gbk
   #done
 ```
 
-6. I copied some few genomes to new folder for testing
+6. Copy some few genomes to new folder for testing
 ```
    #mkdir refseq1
    #cp refseq/*.1_C*.gbk refseq1/
 ```
 
-7. I merged all .gbk files into single gbk file using adapted merge_gbk.py script
+7. Merge all .gbk files into single gbk file using adapted merge_gbk.py script
 ```
    #mkdir refseq_merged
    #python merge_gbk.py refseq1/*.gbk > refseq_merged/ps.gbk
@@ -60,52 +70,11 @@ Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the 
 
 ### Phase 2: Downstream analysis for Effectors prediction
 The second phase of the pipeline is expected to do the following:
-- Taking the output from Prokka and use them to predict potential T1SS, T2SS, T3SS, T4SS, T5SS, & T6SS  effectors. 
-- Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis.
-- Pipeline script for running this phase is pipeline_phase2.sh. Please type `sbatch pipeline_phase2.sh`
+- Taking the output from Prokka and use them to predict potential T3SS effectors. 
+- Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis. The aim is to identify genomic island regions and predicting availability of phages in the annotated sequences. Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
+The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5.4) was used to perform the orthologous analysis.
 
-#### Configuring BEAN-2.0 for T3SS (http://systbio.cau.edu.cn/bean)
-BEAN-2.0 comes with the 'classify.pl' script, which requires several perl modules to be in your PERL5LIB path in addition to those needed to run
-pfam_scan module. These modules include `Class::Load::Load` `Eval::Closure` `IPC::Run` `Package::DeprecationManager' `Test::Fatal`.
-
-The following settings were also done in the 'classify.pl' file:
-- BLAST's database
-`my $blast_nrdb="/data/scratch/bsalehe/blast_nrdb/nr";`
-- HHBLITS's database
-`my $hhsuite_db="/home/bsalehe/canker_cherry/hhsuit_db/scop/scop95";`
-- PfamScan's database
-`my $pfam_db="/scratch/software/BEAN2.0/pfam_db";`
-- HHblits' tool script reformat.pl path
-`my $reformat='/scratch/software/hh-suite/build/scripts';`
-- PfamScan' tool script pfam_scan.pl path
-`my $pfamscan='/scratch/software/BEAN2.0/PfamScan/pfam_scan.pl';`
-- Libsvm' tool script svm-predict
-`my $svm_pred='/home/bsalehe/canker_cherry/software/BEAN-2.0/libsvm-2.9/svm-predict';`
-
-#### Setting necessary variables in bean.sh
-You may need to reset varaibles `BEAN_PATH` and `PIPELINE_OUT` in the file bean.sh. The former finds where BEAN classify.pl script is located while the later saves the prediction results of the bean in text format.
-
-#### Other T3SS Prediction Tools
-Deepredeff has been also added in the pipeline. Deepredeff depends on R and Tensorflow to run CNN models. The prediction is done de novo without feature selection mechanism. The result of Deepredeff were further filtered by using script "blast_deepredeff_results.sh" to reduce false positives as some of the predicted T3 are in fact other effectors. The file "protocol_filtering_deepredeff_results.txt" describes the steps used for filtering. 
-
-#### T4SS Prediction
-The major tool that was integrated in the pipeline is CNN-T4SE (https://idrblab.org/cnnt4se/). This uses convolution neural network (CNN) in building model. The publication of the tool is in (https://pubmed.ncbi.nlm.nih.gov/31860715/) It outperform many T4SS tools based on this review (https://www.frontiersin.org/articles/10.3389/fmicb.2020.580382/full). The script for this tool is named as cnn_t4se.sh
-
-#### T1SS, T2SS, T5SS & T6SS prediction
-Macsyfinder tool is used for the prediction of T1, T2, T5 and T6 Systems. For more about this tool please read its publication in Nature (http://www.nature.com/articles/srep23080). The script name for this tool is macsyf.sh
-The documentation about the inputs and outputs of the tool is here: https://macsyfinder.readthedocs.io/_/downloads/en/latest/pdf. To work with this tool you need to install TXSS models using macsydata tool which comes with Macsyfinder. Instruction to install Macsyfinder is here: https://macsyfinder.readthedocs.io/en/latest/. Instructions to install TXSS models is here: https://github.com/macsy-models/TXSS.
-
-### Phase 3: Phage Analysis and Genomic Islands Identification
-The third phase is to identify genomic island regions and predicting availability of phages in the annotated sequences.
-Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The script files 'genomicislands.sh', 'pipel
-ine_phase3_gi.sh' and 'pipeline_ref_genomes_GIs_prediction.sh' have been integrated in the pipeline to predict genomic island regions in each of the annotated sample sequences. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
-To run this pipeline phase please type `sbatch pipeline_phase3_phage.sh`, `sbatch pipeline_phase3_phage_ref_strains.sh`, `sbatch pipeline_phase3_gi.sh` and `sbatch pipeline_ref_genomes_GIs_prediction.sh`
-
-### Phase 4: Orthologoues analysis
-The fourth phase of the pipeline is analyse the orthologues in the sequence data. The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5.4) was used in this analysis. The script 'orthofinder.sh' was integrated in the pipeline script file 'pipeline_phase4_orthofind.sh'.
-To run this phase please type `sbatch pipeline_phase4_orthofind.sh` and `sbatch pipeline_phase4_orthofind_ref_strains.sh`.
-
-## Pipeline Outputs
+## General location for pipeline Outputs
 There paths for pipeline outputs are:
 
 ### Preprocessing and assembly 

@@ -26,7 +26,7 @@ PROKKAOUTDIR path where the PROKKA output files are located.
 Example `PROKKAOUTDIR="/data/scratch/bsalehe/prokka_out/Tracy/refgenomes/"`
 
 DEEPREDEFFOUTDIR pathe where the Deepredeff output files are going to be stored.
-Example 'DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff"`
+Example `DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff"`
 
 Please run the pipeline in the slurm environment by typing the following command:
 ```

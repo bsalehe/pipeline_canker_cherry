@@ -18,6 +18,7 @@ Before running the pipeline script open it using vim or any text editor and plea
 
 READSDATADIR path where the sample reads are located.
 Example `READSDATADIR=/home/bsalehe/canker_cherry/data/yang/`
+If READSDATADIR contains already assembled files then comment out lines 40 - 77, and 76. Uncomment lines 74 and 75. Also the READSDATADIR should be changed accordingly.
 
 QUASTOUTDIR path where the Quast output files are going to be stored.
 Example `QUASTOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/"`
@@ -68,6 +69,8 @@ The prokka script should be conifgured accordingly:
 ```
 Step 1 and 2 may be skipped. Step 3 up to 7 may be repeated by uncommenting the prokka_script accordingly excluding step 6.
 
+Please change PROKKA_OUT path variable in the prokka_ps.sh script accordingly. The path store the annotation files which are used for other downstream analysis. Basically, the PROKKA_OUT store the same path as PROKKAOUTDIR. Prokka requires that the directory for storing annotation files should not exist before. Also change the fasta format extension in the psname variable accordingly.
+
 In the second phase the pipeline is expected to do the following:
 - Taking the output from Prokka and use them to predict potential T3SS effectors. 
 - Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis. The aim is to identify genomic island regions and predicting availability of phages in the annotated sequences. Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
@@ -85,3 +88,9 @@ There paths for pipeline outputs are:
 ### Downstream analysis: Effectors, Genomic islands, Prophage & Orthologues
 - /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis
 
+You may need to change the following output path directories in the following scripts:
+- EFECTIVE_T3_OUTDIR : effective_t3.sh.
+- MACSYF_OUT : macsyf.sh
+- PHISPY_OUTDIR : phage_analysis.sh
+- GI_OUTDIR : genomicislands.sh
+- ORTHOFINDER_DIR : orthofinder.sh

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #!/usr/bin/env bash
+
+
 #SBATCH --partition=long
 #SBATCH --mem=500G
 #SBATCH --cpus-per-task=16
@@ -20,13 +22,18 @@ GENOME_SIZE=$3
 #WORKDIR=$PWD
 #Correction=""
 #Cutoff="off" ## --cov-cutoff
-READSDATADIR="/home/bsalehe/canker_cherry/data/yang/"
+
+READSDATADIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/"
+
+#READSDATADIR="/home/bsalehe/canker_cherry/data/yang/" #sample reads in 'fastq.gz' are in this directory
 
 QUASTOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/"
 
-PROKKAOUTDIR="/data/scratch/bsalehe/prokka_out/Tracy/refgenomes/"
+PROKKAOUTDIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/prokka_out"
 
-DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff"
+#DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/January/deepredeff/refgenomes"
+
+DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Michelle/1/T3/January/deeprdeff/known_genomes"
 
 ################################################################
 #
@@ -34,43 +41,43 @@ DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/T
 #
 ################################################################
 
-for file1 in ${READSDATADIR}*_R1_001.fastq.gz; do
-        file2=${file1/R1_/R2_}
-        ./fastp.sh "$file1" "$file2" "$(basename $file1 001.fastq.gz)trimmed.fastq.gz" "$(basename $file2 001.fastq.gz)trimmed.fastq.gz"
-        ./genome_cov.sh "$(basename $file1 001.fastq.gz)trimmed.fastq.gz" "$(basename $file2 001.fastq.gz)trimmed.fastq.gz" 6
-done
+#for file1 in ${READSDATADIR}*_R1_001.fastq.gz; do
+#        file2=${file1/R1_/R2_}
+#        ./fastp.sh "$file1" "$file2" "$(basename $file1 001.fastq.gz)trimmed.fastq.gz" "$(basename $file2 001.fastq.gz)trimmed.fastq.gz"
+#        ./genome_cov.sh "$(basename $file1 001.fastq.gz)trimmed.fastq.gz" "$(basename $file2 001.fastq.gz)trimmed.fastq.gz" 6
+#done
 
-##########################################################
+################################################################
 #
 # ASSEMBLY: Using SPAdes
 #
-##########################################################
+################################################################
 
-for file1 in *_R1_trimmed.fastq.gz; do
-        file2=${file1/R1_/R2_}
-        sname=$(basename $file1 _L001_R1_trimmed.fastq.gz)
-        ./SPAdes.sh "$file1" "$file2" "$sname" "off"
-
-##############################################################
+#for file1 in *_R1_trimmed.fastq.gz; do
+#        file2=${file1/R1_/R2_}
+#        sname=$(basename $file1 _L001_R1_trimmed.fastq.gz)
+#        ./SPAdes.sh "$file1" "$file2" "$sname" "off"
+#
+################################################################
 #
 # ASSEMBLY ANALYSIS: Using Quast
 #
-##############################################################
-        ./quast.sh ${sname}/scaffolds.fasta ${sname}_quast_out
-        mv ${sname}_quast_out $QUASTOUTDIR
-
-##############################################################
+################################################################
+#        ./quast.sh ${sname}/scaffolds.fasta ${sname}_quast_out
+#        mv ${sname}_quast_out $QUASTOUTDIR
+#
+################################################################
 #
 # ANNOTATION: Using Prokka
 #
 ###############################################################
-
-        #./prokka_ps.sh $Assembly_file
-        ./prokka_ps.sh ${sname}/contigs.fasta
+for file1 in ${READSDATADIR}*.fa; do
+        ./prokka_ps.sh $file1
+#        ./prokka_ps.sh ${sname}/contigs.fasta
         #rm -r ${sname}
 done
 
-rm *.gz
+#rm *.gz
 
 #
 #
@@ -79,6 +86,7 @@ rm *.gz
 # PHASE 2A: EFFECTORS PREDICTION FROM PROKKA ANNOTATION FILES
 
 #################################################################
+#
 # Iterate over directories containing prokka output files
 for prokka_dir in $PROKKAOUTDIR*; do  
     sample_name=$(basename $prokka_dir);

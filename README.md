@@ -80,17 +80,19 @@ The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5
 There paths for pipeline outputs are:
 
 ### Preprocessing and assembly 
-- /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing
+- `/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing`
 
 ### Annotation
-- PROKKA : /data/scratch/bsalehe/prokka_out/
+- `PROKKA : /data/scratch/bsalehe/prokka_out/`
 
 ### Downstream analysis: Effectors, Genomic islands, Prophage & Orthologues
-- /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis
+- `/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis`
 
-You may need to change the following output path directories in the following scripts:
+You may also need to change the following output path directories in the following scripts:
 - EFECTIVE_T3_OUTDIR : effective_t3.sh.
 - MACSYF_OUT : macsyf.sh
-- PHISPY_OUTDIR : phage_analysis.sh
-- GI_OUTDIR : genomicislands.sh
-- ORTHOFINDER_DIR : orthofinder.sh
+- ORTHOFINDER_DIR : orthofinder.sh ## This directory should not exist before.
+For instance, in `ORTHOFINDER_DIR="/dir/to/orthofinder/"`, the directory "orthofinder" should not exist before running Orthofinder program. Also, before running the pipeline,  please copy the annotation fasta files from PROKKAOUDIR into another separate directory which will be used as input directory for orthofinder.
+
+In running `genomicislands.sh`, please change the directory PROKKAOUTDIR accordingly. It is better to run it outside the pipeline by typing `bash ./genomicislands.sh`. This is because if it is run within pipeline script (pipeline.sh), it gives error "ModuleNotFoundError: No module named 'requests_toolbelt'", which requires a super user to sort this out as indicated in this link https://stackoverflow.com/a/56416843.
+

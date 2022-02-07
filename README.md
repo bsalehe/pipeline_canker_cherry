@@ -92,7 +92,7 @@ You may also need to change the following output path directories in the followi
 - EFECTIVE_T3_OUTDIR : effective_t3.sh.
 - MACSYF_OUT : macsyf.sh
 - ORTHOFINDER_DIR : orthofinder.sh ## This directory should not exist before.
-For instance, in `ORTHOFINDER_DIR="/dir/to/orthofinder/"`, the directory "orthofinder" should not exist before running Orthofinder program. Also, before running the pipeline,  please copy the annotation fasta files from PROKKAOUDIR into another separate directory which will be used as input directory for orthofinder.
+For instance, in `ORTHOFINDER_DIR="/dir/to/orthofinder/"`, the directory "orthofinder" should not exist before running Orthofinder program. Also, before running the pipeline,  please copy the annotation fasta files from PROKKAOUTDIR into another separate directory which will be used as input directory for orthofinder.
 
 In running `genomicislands.sh`, please change the directory PROKKAOUTDIR accordingly. It is better to run it outside the pipeline by typing `bash ./genomicislands.sh`. This is because if it is run within pipeline script (pipeline.sh), it gives error "ModuleNotFoundError: No module named 'requests_toolbelt'", which requires a super user to sort this out as indicated in this link https://stackoverflow.com/a/56416843.
 

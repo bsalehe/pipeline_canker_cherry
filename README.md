@@ -96,4 +96,4 @@ For instance, in `ORTHOFINDER_DIR="/dir/to/orthofinder/"`, the directory "orthof
 
 In running `genomicislands.sh`, please change the directory PROKKAOUTDIR accordingly. It is better to run it outside the pipeline by typing `bash ./genomicislands.sh`. This is because if it is run within pipeline script (pipeline.sh), it gives error "ModuleNotFoundError: No module named 'requests_toolbelt'", which requires a super user to sort this out as indicated in this link https://stackoverflow.com/a/56416843.
 
-For phages identification the script "phaster.py" was adopted from https://github.com/boulund/phaster_scripts, which send batch files under ths hood to PHASTER servers. The results are sent to the Web client for viewing and download. The "phaster.py" was integrated to the pipeline.
+For phages identification the script "phaster.py" was adopted from https://github.com/boulund/phaster_scripts, which sends batch files under ths hood to PHASTER servers. The results are sent to the Web client for viewing and download. The "phaster.py" was integrated to the pipeline.

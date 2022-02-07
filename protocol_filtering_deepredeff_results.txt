@@ -5,11 +5,11 @@
 4. Open a new workbook.
 5. Paste the content to the new workbook.
 6. Select Data > "Text to Columns" pane
-   - Separate data by space, click "Next", "Next" and then click "Finish"
+   - In the pop up window separate data by space and tab, click "Next", "Next" and then click "Finish"
 7. Repeat step 2 to 6 for each <#SN column name> in a single csv file
    - For <#SN protein name>;do the following after pasting the content
      - Paste the content into different worksheet
-     - Concatenate the third column contents into single column using the following formula (note two spaces) <=CONCATENATE(C2,"  ",D2,"  ",E2,"  ",F2,"  ",G2,"  ",H2,"  ",I2,"  ",J2,"  ",K2)>
+     - Concatenate the third column contents into single column using the following formula (note space) <=CONCATENATE(C2," ",D2," ",E2," ",F2," ",G2," ",H2," ",I2," ",J2," ",K2)
      - Copy the sequence name and concatenated protein name and paste into the newly opened workbook.
      - After pasting name the concatenated new column as "Protein name"
 8. Save newly opened workbook.

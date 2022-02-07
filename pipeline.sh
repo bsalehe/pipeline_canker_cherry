@@ -25,15 +25,13 @@ GENOME_SIZE=$3
 
 READSDATADIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/"
 
-#READSDATADIR="/home/bsalehe/canker_cherry/data/yang/" #sample reads in 'fastq.gz' are in this directory
-
 QUASTOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/"
 
-PROKKAOUTDIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/prokka_out"
+PROKKAOUTDIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/prokka_out/"
 
-#DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/January/deepredeff/refgenomes"
+DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Michelle_data/T3/January/deeprdeff/known_genomes"
 
-DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Michelle/1/T3/January/deeprdeff/known_genomes"
+ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 
 ################################################################
 #
@@ -71,11 +69,11 @@ DEEPREDEFFOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/M
 # ANNOTATION: Using Prokka
 #
 ###############################################################
-for file1 in ${READSDATADIR}*.fa; do
-        ./prokka_ps.sh $file1
+#for file1 in ${READSDATADIR}*.fa; do
+#        ./prokka_ps.sh $file1
 #        ./prokka_ps.sh ${sname}/contigs.fasta
         #rm -r ${sname}
-done
+#done
 
 #rm *.gz
 
@@ -88,19 +86,20 @@ done
 #################################################################
 #
 # Iterate over directories containing prokka output files
-for prokka_dir in $PROKKAOUTDIR*; do  
-    sample_name=$(basename $prokka_dir);
-    PROKKA_OUT=${prokka_dir}/${sample_name}.faa
+#for prokka_dir in ${PROKKAOUTDIR}*; do  
+#    sample_name=$(basename $prokka_dir);
+#    PROKKA_OUT=${prokka_dir}/${sample_name}.faa
+#    PROKKA_OUT_GBK=${prokka_dir}/${sample_name}.gbk
     #file_name=$(basename $PROKKA_OUT .faa)
     #sample_name=$(dirname $PROKKA_OUT)
-
-#################################################################
+#
+##################################################################
 #
 # T3SS: EffectiveT3
 #
 #################################################################
 #
-    ./effective_t3.sh $PROKKA_OUT $sample_name
+#    ./effective_t3.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 
@@ -110,7 +109,7 @@ for prokka_dir in $PROKKAOUTDIR*; do
 #
 #################################################################
 #
-    ./macsyf.sh $PROKKA_OUT $sample_name
+#    ./macsyf.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 #
@@ -118,8 +117,8 @@ for prokka_dir in $PROKKAOUTDIR*; do
 #
 #################################################################
 #
-    ./deepredeff.sh $PROKKA_OUT 
-    mv deepredeff_output ${DEEPREDEFFOUTDIR}/${sample_name}_deepredeff_result.csv
+#    ./deepredeff.sh $PROKKA_OUT 
+#    mv deepredeff_output ${DEEPREDEFFOUTDIR}/${sample_name}_deepredeff_result.csv
 #
 #################################################################
 
@@ -131,31 +130,40 @@ for prokka_dir in $PROKKAOUTDIR*; do
 #
 #    ./bean.sh $PROKKA_OUT $sample_name
 #
-#################################################################
+##################################################################
 #
 #################################################################
 
-# PHASE 2B: PHAGE PREDICTION FROM PROKKA ANNOTATION FILES
+# PHASE 2B: GENOMIC ISLANDS PREDICTION FROM PROKKA ANNOTATION FILES
+
+#################################################################
+#
+#################################################################
+#
+#    ./genomicislands.sh $PROKKA_OUT_GBK $sample_name
+#
+#python3 /home/bsalehe/canker_cherry/scripts/pipeline_canker_cherry/genomicislands.py $PROKKA_OUT_GBK
+#
+##################################################################
+#
+#done
+
+#################################################################
+
+# PHASE 2C: PHAGE PREDICTION FROM PROKKA ANNOTATION FILES
 
 #################################################################
 #
 ################################################################
-    ./phage_analysis.sh $PROKKA_OUT $sample_name
+#    ./phage_analysis.sh $PROKKA_OUT $sample_name
+# Iterate over fasta files containing contigs
+#for file1 in ${READSDATADIR}*.fa; do
 #
-##################################################################
-#
-#################################################################
+#       python3 phaster_scripts/phaster.py --fasta $file1
 
-# PHASE 2C: GENOMIC ISLANDS PREDICTION FROM PROKKA ANNOTATION FILES
+#done
 
-#################################################################
 #
-#################################################################
-#
-    ./genomicislands.sh $PROKKA_OUT $sample_name
-#
-##################################################################
-
 #################################################################
 
 # PHASE 2D: ORTHOLOGS ANALYSIS FROM PROKKA ANNOTATION FILES
@@ -164,12 +172,10 @@ for prokka_dir in $PROKKAOUTDIR*; do
 #
 #################################################################
 #
-# ORTHOLOGUE FINDING: ORTHOFINDER 2.5.4
+#          ORTHOFINDER 2.5.4
 #
-#################################################################
+#for f in ${PROKKAOUTDIR}*; do samplename=$(basename $f); prokka_out=${f}/${samplename}.faa; cp $prokka_out $ORTHODIR; done
 #
-    ./orthofinder.sh $PROKKA_OUT $sample_name
+    ./orthofinder.sh $ORTHODIR
 #
 ##################################################################
-
-done

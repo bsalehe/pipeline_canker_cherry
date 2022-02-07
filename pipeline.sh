@@ -69,8 +69,8 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 # ANNOTATION: Using Prokka
 #
 ###############################################################
-#for file1 in ${READSDATADIR}*.fa; do
-#        ./prokka_ps.sh $file1
+for file1 in ${READSDATADIR}*.fa; do
+        ./prokka_ps.sh $file1
 #        ./prokka_ps.sh ${sname}/contigs.fasta
         #rm -r ${sname}
 #done
@@ -86,9 +86,9 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #################################################################
 #
 # Iterate over directories containing prokka output files
-#for prokka_dir in ${PROKKAOUTDIR}*; do  
-#    sample_name=$(basename $prokka_dir);
-#    PROKKA_OUT=${prokka_dir}/${sample_name}.faa
+for prokka_dir in ${PROKKAOUTDIR}*; do  
+    sample_name=$(basename $prokka_dir);
+    PROKKA_OUT=${prokka_dir}/${sample_name}.faa
 #    PROKKA_OUT_GBK=${prokka_dir}/${sample_name}.gbk
     #file_name=$(basename $PROKKA_OUT .faa)
     #sample_name=$(dirname $PROKKA_OUT)
@@ -99,7 +99,7 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #
 #################################################################
 #
-#    ./effective_t3.sh $PROKKA_OUT $sample_name
+    ./effective_t3.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 
@@ -109,7 +109,7 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #
 #################################################################
 #
-#    ./macsyf.sh $PROKKA_OUT $sample_name
+    ./macsyf.sh $PROKKA_OUT $sample_name
 #
 #################################################################
 #
@@ -117,8 +117,8 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #
 #################################################################
 #
-#    ./deepredeff.sh $PROKKA_OUT 
-#    mv deepredeff_output ${DEEPREDEFFOUTDIR}/${sample_name}_deepredeff_result.csv
+    ./deepredeff.sh $PROKKA_OUT 
+    mv deepredeff_output ${DEEPREDEFFOUTDIR}/${sample_name}_deepredeff_result.csv
 #
 #################################################################
 
@@ -146,7 +146,7 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #
 ##################################################################
 #
-#done
+done
 
 #################################################################
 
@@ -155,13 +155,13 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #################################################################
 #
 ################################################################
-#    ./phage_analysis.sh $PROKKA_OUT $sample_name
+#    ./phage_analysis.sh $PROKKA_OUT $sample_name using phaster 
 # Iterate over fasta files containing contigs
-#for file1 in ${READSDATADIR}*.fa; do
+for file1 in ${READSDATADIR}*.fa; do
 #
-#       python3 phaster_scripts/phaster.py --fasta $file1
+       python3 phaster.py --fasta $file1
 
-#done
+done
 
 #
 #################################################################
@@ -173,8 +173,6 @@ ORTHODIR="/data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/"
 #################################################################
 #
 #          ORTHOFINDER 2.5.4
-#
-#for f in ${PROKKAOUTDIR}*; do samplename=$(basename $f); prokka_out=${f}/${samplename}.faa; cp $prokka_out $ORTHODIR; done
 #
     ./orthofinder.sh $ORTHODIR
 #

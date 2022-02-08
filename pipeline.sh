@@ -172,6 +172,7 @@ done
 #
 #################################################################
 #
+#for f in ${PROKKAOUTDIR}*; do samplename=$(basename $f); prokka_out=${f}/${samplename}.faa; cp $prokka_out  /data/scratch/bsalehe/orthofinder_prep_files/Michelle_epiphytes/ ; done
 #          ORTHOFINDER 2.5.4
 #
     ./orthofinder.sh $ORTHODIR

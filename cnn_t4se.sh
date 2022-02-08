@@ -25,6 +25,7 @@ dsname=$(echo $part2 | awk -F_o '{ print $1 }')
 
 #done
 #
+#
 if [ $(grep "^>" $file | wc -l) -gt 1 ]; then ## if the number of sequence is more than one break each sequence in the multifasta file into individual separate file each with single sequence
  awk -F " " '/^>/ {close(F); ID=$1; gsub("^>", "", ID); F=ID".fasta"} {print >> F}' $file;
  for fasta_file in *.fasta; do ## loop over each split individual single fasta sequence file to run SCRATCH

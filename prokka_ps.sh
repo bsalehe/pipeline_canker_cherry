@@ -2,13 +2,16 @@
 
 # Reference sequence path containing gbk files
 #REFSEQPATH="/home/bsalehe/canker_cherry/scripts/refseq1/"
-#REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
+REFSEQJOINEDGBK="/home/bsalehe/canker_cherry/scripts/combined_gbk/"
 PROKKA_DB="/data/scratch/bsalehe/prokka_db/"
-PROKKA_OUT="/data/scratch/bsalehe/prokka_out/test"
+#PROKKA_OUT="/data/scratch/bsalehe/prokka_out/Tracy/refgenomes/January"
+PROKKA_OUT="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/prokka_out"
+#PROKKA_OUT="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/test_pipeline/prokka_out"
 
 #spades_out="$1"
 Assembly="$1"
-psname=$(dirname $Assembly)
+#psname=$(dirname $Assembly)
+psname=$(basename $Assembly .fa)
 #### Prokka genome annotation #### 
  
 # 12.03.18 Downloaded all Pseudomonas syringae group complete genome NCBI accession numbers to build database for Prokka annotation
@@ -54,7 +57,9 @@ conda deactivate
 source ${MYCONDAPATH}/bin/activate prokka
 
 # Run Prokka
-prokka --outdir ${PROKKA_OUT}/${psname} $Assembly
+#prokka --outdir ${PROKKA_OUT}/${psname} $Assembly
+
+prokka --genus Pseudomonas --species syringae --strain $psname --proteins ${REFSEQJOINEDGBK}/ps.gbk --outdir ${PROKKA_OUT}/${psname} --prefix $psname $Assembly
 
 #convert all ref genbank files into fasta format
 #prokka-genbank_to_fasta_db ${REFSEQPATH}*.gbk > ${REFSEQPATH}ps.faa

@@ -1,9 +1,11 @@
 #!/bin/bash
 #
 #
-GI_WORKIDIR="/scratch/software/genomicislandviewer/islandpath"
-OUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/genomic_islands/gislandviewer"
-gb_file="$1"
-s_name="$2"
+GI_WORKDIR="/home/bsalehe/canker_cherry/scripts/pipeline_canker_cherry"
+PROKKAOUTDIR="/data/scratch/bsalehe/Michelle_data/ps_genomic_strains/canker_genomes/epiphyte_genomes/prokka_out/"
 
-${GI_WORKIDIR}/Dimob.pl $gb_file ${OUTDIR}/${s_name}_genomic_islands.txt
+for prokka_dir in ${PROKKAOUTDIR}*; do
+    sample_name=$(basename $prokka_dir)
+    PROKKA_OUT_GBK=${prokka_dir}/${sample_name}.gbk
+    python3 ${GI_WORKDIR}/genomicislands.py $PROKKA_OUT_GBK
+done

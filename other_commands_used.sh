@@ -204,3 +204,6 @@ rm -r TXSS/
 # Extracting sequence from the thord column of the filtered Deepredeff predicted T3 effectors for further BLASTING
 cd /data/scratch/bsalehe/canker_cherry_pipeline_output/analysis/Tracy/1/T3/deepredeff
 for file in *_deepredeff_result_filtered.csv ; do  name=$(basename $file .csv); awk -F, 'NR>1 {print ">"$2 "\n" $3}' $file > ${name}_sequence.fasta; done
+
+# Creating blast databse for known t3 effectors
+makeblastdb -in db_t3se/Supplemental_Dataset_S4.fasta -out db_t3se/t3_effector_db -dbtype prot

@@ -21,7 +21,7 @@ echo "Usage: genome_size.sh  <file1.fq.gz> <option file2.fq.gz> <genome_size int
 
 # Copy coverage output into /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/
 #
-cp ${gsname}_coverage.txt /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/new/
+cp ${gsname}_coverage.txt /data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/
 #
 rm ${gsname}_coverage.txt
 

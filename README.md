@@ -106,4 +106,4 @@ We have used BLASTP for improving the T3 effectors prediction results. For insta
 - The potential hits with their sequences are retrieved using python script 'get_hits.py'.
 - - E.g `python3 get_hits.py /data/outputs_of_blastp.txt /data/sequences_of_the_blastp_hits.txt /data/deepredeff_dir/retrieved_sequences_from_deepredeff.fasta`
 - The file /data/sequences_of_the_blastp_hits.txt is the final outputs of the predicted T3 effectors sequences out of all sequences from the Deepredeff predictions. The files /data/outputs_of_blastp.txt and /data/sequences_of_the_blastp_hits.txt are the outputs from blastp, and sequences of the predicted effectors from the Dwepredeff after blastp respectively.
-The blastp database used is from this paper 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6460904/'.
+The blastp database that was used is from the supplimentary data of the T3 effectors, the largest todate which is available at the 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6460904/'.

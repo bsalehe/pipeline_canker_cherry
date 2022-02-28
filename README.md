@@ -104,6 +104,6 @@ We have used BLASTP for improving the T3 effectors prediction results. For insta
 - Then the sequences are extracted using this command `for file in *_deepredeff_result_.csv ; do  name=$(basename $file .csv); awk -F, 'NR>1 {print ">"$2 "\n" $3}' $file > ${name}sequence.fasta; done`
 - Then BLASTP is performed usin the script 'blastp.sh'.
 - The potential hits with their sequences are retrieved using python script 'get_hits.py'.
-- - E.g `python3 get_hits.py python3 /data/outputs_of_blastp.txt /data/sequences_of_the_blastp_hits.txt /data/deepredeff_dir/retrieved_sequences_from_deepredeff.fasta`
+- - E.g `python3 get_hits.py /data/outputs_of_blastp.txt /data/sequences_of_the_blastp_hits.txt /data/deepredeff_dir/retrieved_sequences_from_deepredeff.fasta`
 - The file /data/sequences_of_the_blastp_hits.txt are the final outputs of the predicted T3 effectors sequences out of all sequences from the Deepredeff predictions. The files /data/outputs_of_blastp.txt and /data/sequences_of_the_blastp_hits.txt are the outputs from blastp, and sequences of the predicted effectors from the Dwepredeff after blastp.
 The blastp database used is from this paper 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6460904/'.

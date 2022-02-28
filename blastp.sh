@@ -16,4 +16,3 @@ export PATH=/scratch/software/ncbi-blast-2.11.0+/ncbi-blast-2.11.0+/bin:$PATH
     blastp -query $file -db ${BLASTDBINPUT}Supplemental_Dataset_S4.fasta -evalue 1e-6 -num_threads 8 -out ${BLASTPOUT}/${name}_blastp.txt
   done
 #cd -
-

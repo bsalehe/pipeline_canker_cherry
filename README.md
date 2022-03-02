@@ -73,7 +73,7 @@ Please change `PROKKA_OUT` path variable in the prokka_ps.sh script accordingly.
 
 In the second phase the pipeline is expected to do the following:
 - Taking the output from Prokka and use them to predict potential T3SS effectors. 
-- Predicting prophage genomic islands, finding whether there are orthologoues and perform phylogenetic analysis. The aim is to identify genomic island regions and predicting availability of phages in the annotated sequences. Genomic islands identification is done by using islandPath DIMOB (https://github.com/brinkmanlab/islandpath) tool which is an integrated method of the islandviewer (https://www.pathogenomics.sfu.ca/islandviewer/browse/) tool. The prediction of prophage is done by using phispy tool (https://github.com/linsalrob/PhiSpy). To work with the tool properly the LOCUS part of the gbk annotation files from prokka was modified using script files 'modify_locus_genbank.sh' and 'modify_locus_genbank.py'. The script 'phage_analysis.sh' is used to predict prophages and it was integrated in the pipeline with its script files named 'pipeline_phase3_phage.sh' and 'pipeline_phase3_phage_ref_strains.sh'
+- Predicting prophages, genomic islands, and orthologoues analysis. Genomic islands identification is done by using IslandViewer 4 (https://www.pathogenomics.sfu.ca/islandviewer/http_api/) integrated within genomicislands.sh script. The prediction of prophage is done by using PHASTER.
 The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5.4) was used to perform the orthologous analysis.
 
 ## General location for pipeline Outputs
@@ -96,7 +96,7 @@ For instance, in `ORTHOFINDER_DIR="/dir/to/orthofinder/"`, the directory "orthof
 
 In running `genomicislands.sh`, please change the directory PROKKAOUTDIR accordingly. It is better to run it outside the pipeline by typing `bash ./genomicislands.sh`. This is because if it is run within pipeline script (pipeline.sh), it gives error "ModuleNotFoundError: No module named 'requests_toolbelt'", which requires a super user to sort this out as indicated in this link https://stackoverflow.com/a/56416843.
 
-For phages identification the script "phaster.py" was adopted from https://github.com/boulund/phaster_scripts, which sends batch files under ths hood to PHASTER servers. The results are sent to the Web client for viewing and download. The "phaster.py" was integrated to the pipeline.
+For phages identification the script "phaster.py" was adopted from https://github.com/boulund/phaster_scripts, which sends batch files under ths hood to PHASTER servers (http://phaster.ca/). The results are sent to the Web client for viewing and download. The "phaster.py" was integrated to the pipeline.
 
 ### General procedure for running blast after T3 effector prediction
 We have used BLASTP for improving the T3 effectors prediction results. For instance, when runnin pipeline for T3 prediction using Deepredeff, the results are literally in CSV format. 

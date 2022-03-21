@@ -16,9 +16,9 @@ In the first phase, the pipeline is expected to do the following:
 The pipeline.sh script file should be in the same directory with other script files.
 Before running the pipeline script open it using vim or any text editor and please change accordingly the following variables:-
 
-READSDATADIR path where the sample reads are located.
+READSDATADIR path where the inputs  reads or assambled fasta are located.
 Example `READSDATADIR=/home/bsalehe/canker_cherry/data/yang/`
-If READSDATADIR contains already assembled files then comment out lines 44 - 67, and 76. Uncomment lines 74 and 75. Also the READSDATADIR should be changed accordingly.
+If READSDATADIR contains already assembled files then comment out lines 42 - 65, and 74. Uncomment lines 72 and 73.
 
 QUASTOUTDIR path where the Quast output files are going to be stored.
 Example `QUASTOUTDIR="/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing/Tracy/1/"`
@@ -77,7 +77,7 @@ In the second phase the pipeline is expected to do the following:
 The OrthoFinder 2.5.4 (https://github.com/davidemms/OrthoFinder/releases/tag/2.5.4) was used to perform the orthologous analysis.
 
 ## General location for pipeline Outputs
-There paths for pipeline outputs are:
+The paths for pipeline outputs are:
 
 ### Preprocessing and assembly 
 - `/data/scratch/bsalehe/canker_cherry_pipeline_output/assembly_pre-processing`
